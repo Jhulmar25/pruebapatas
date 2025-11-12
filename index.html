@@ -1,213 +1,125 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Fotocheck — Verificación</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verificación de Credencial - Red de Patas</title>
+<script type="module">
+  // ============================================================
+  // 🔥 CONFIGURACIÓN FIREBASE
+  // ============================================================
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC6yKvIGVzcT2uymCeU8PN42m6bk7daIo0",
+    authDomain: "red-de-patas.firebaseapp.com",
+    projectId: "red-de-patas",
+    storageBucket: "red-de-patas.firebasestorage.app",
+    messagingSenderId: "812893065625",
+    appId: "1:812893065625:web:26c9abe5532b230cd14308",
+    measurementId: "G-DKFRRXQDC7"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // ============================================================
+  // 🔎 FUNCIÓN PRINCIPAL: VERIFICAR CÓDIGO
+  // ============================================================
+  async function verificarCredencial() {
+    const hash = window.location.hash.substring(1);
+    const partes = hash.split("|");
+    const codigo = partes[0];
+
+    const statusDiv = document.getElementById("status");
+    const card = document.getElementById("card");
+    const nombreEl = document.getElementById("nombre");
+    const dniEl = document.getElementById("dni");
+    const telEl = document.getElementById("telefono");
+    const fotoEl = document.getElementById("foto");
+
+    if (!codigo) {
+      statusDiv.textContent = "⚠️ No se detectó ningún código QR.";
+      statusDiv.className = "error";
+      return;
+    }
+
+    try {
+      const ref = doc(db, "Paseadores", codigo);
+      const snap = await getDoc(ref);
+
+      if (snap.exists()) {
+        const data = snap.data();
+        nombreEl.textContent = data.nombre || "Sin nombre";
+        dniEl.textContent = data.dni || "Sin DNI";
+        telEl.textContent = data.telefono || "Sin teléfono";
+        fotoEl.src = data.foto || "https://via.placeholder.com/150";
+        card.classList.add("valido");
+        statusDiv.textContent = "✅ Credencial verificada";
+        statusDiv.className = "ok";
+      } else {
+        card.classList.add("falso");
+        fotoEl.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Error.svg/1024px-Error.svg.png";
+        nombreEl.textContent = "Credencial no registrada";
+        dniEl.textContent = "—";
+        telEl.textContent = "—";
+        statusDiv.textContent = "❌ QR falsificado o inexistente";
+        statusDiv.className = "error";
+      }
+    } catch (err) {
+      console.error(err);
+      statusDiv.textContent = "⚠️ Error al conectar con el servidor.";
+      statusDiv.className = "error";
+    }
+  }
+
+  window.addEventListener("DOMContentLoaded", verificarCredencial);
+</script>
+
 <style>
-  :root{
-    --bg:#0b1220; --card:#111a2b; --accent:#2dd4bf; --muted:#94a3b8; --text:#e6edf3; --warn:#ef4444;
-  }
-  html,body{height:100%}
-  body{
-    margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji","Segoe UI Emoji";
-    background: radial-gradient(1200px 600px at 20% -10%, #17223a 0%, #0b1220 60%, #090f1a 100%);
-    color:var(--text); display:grid; place-items:center; padding:24px;
-  }
-  .wrap{width:100%; max-width:900px; display:grid; gap:18px}
-  header{display:flex; gap:12px; align-items:center; justify-content:center; flex-wrap:wrap; text-align:center}
-  .badge{font-size:12px; letter-spacing:.16em; color:var(--muted); border:1px solid #223150; padding:6px 10px; border-radius:999px}
-  h1{margin:.2rem 0 0; font-size:clamp(20px,2.6vw,28px)}
-  .grid{display:grid; grid-template-columns: 1fr 360px; gap:18px}
-  @media (max-width:860px){ .grid{grid-template-columns:1fr} }
-  .card{
-    background:linear-gradient(180deg, #121b2f 0%, #0f192b 100%); border:1px solid #1f2a44; border-radius:18px; box-shadow: 0 10px 30px rgba(0,0,0,.35);
-  }
-  .idcard{ display:grid; grid-template-columns:120px 1fr; gap:18px; padding:18px }
-  @media (max-width:420px){ .idcard{grid-template-columns:1fr} }
-  .chip{
-    width:54px; height:36px; border-radius:8px; background:linear-gradient(135deg,#f5d76e,#b68d2a); border:1px solid rgba(255,255,255,.25);
-    box-shadow: inset 0 0 0 1px rgba(0,0,0,.2); margin-top:6px;
-  }
-  .photo{
-    width:120px; height:120px; border-radius:14px; background:#0b1220; border:1px dashed #274060; display:grid; place-items:center; font-size:12px; color:#5f7da1;
-  }
-  .fields{display:grid; gap:10px}
-  .row{display:grid; grid-template-columns:120px 1fr; gap:10px; align-items:center}
-  .label{color:var(--muted); font-size:12px; letter-spacing:.08em; text-transform:uppercase}
-  .value{font-size:16px; font-weight:600}
-  .ok{color:var(--accent)}
-  .warn{color:var(--warn)}
-  .actions{display:flex; gap:10px; flex-wrap:wrap; padding:16px; border-top:1px solid #1f2a44}
-  button, a.btn{
-    appearance:none; border:1px solid #24426b; background:#14233b; color:var(--text); padding:10px 14px; border-radius:12px; cursor:pointer;
-    font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
-  }
-  button:hover, a.btn:hover{ background:#0f1c34; border-color:#2b558e }
-  .pill{font-size:12px; padding:4px 8px; border-radius:999px; border:1px solid #24426b; color:var(--muted)}
-  .panel{padding:18px}
-  code{background:#0c1424; border:1px solid #1f2a44; padding:3px 6px; border-radius:8px}
-  .tiny{font-size:12px; color:var(--muted)}
+body {
+  background: #0b1220;
+  color: #e6edf3;
+  font-family: system-ui, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+}
+#card {
+  background: #111a2b;
+  border: 2px solid #1f2a44;
+  border-radius: 16px;
+  padding: 20px;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+#card.valido { border-color: #16a34a; }
+#card.falso { border-color: #dc2626; }
+img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+#status.ok { color: #22c55e; font-weight: bold; }
+#status.error { color: #ef4444; font-weight: bold; }
+h2 { margin: 10px 0 5px; font-size: 1.3em; }
+p { margin: 3px 0; color: #94a3b8; }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <span class="badge">VERIFICACIÓN • FOTOCHECK</span>
-      <h1 id="title">Credencial de identificación</h1>
-    </header>
-
-    <div class="grid">
-      <!-- Fotocheck -->
-      <section class="card" id="card">
-        <div class="idcard">
-          <div>
-            <div class="photo" id="foto">FOTO</div>
-            <div class="chip" title="Chip de seguridad"></div>
-          </div>
-          <div class="fields">
-            <div class="row"><div class="label">Estado</div><div class="value" id="estado">Cargando…</div></div>
-            <div class="row"><div class="label">Código</div><div class="value" id="codigo">—</div></div>
-            <div class="row"><div class="label">DNI</div><div class="value" id="dni">—</div></div>
-            <div class="row"><div class="label">Nombre</div><div class="value" id="nombre">—</div></div>
-            <div class="row"><div class="label">Última verificación</div><div class="value tiny" id="fecha">—</div></div>
-            <div class="row"><div class="label">Enlace</div><div class="value tiny" id="enlace">—</div></div>
-          </div>
-        </div>
-        <div class="actions">
-          <button id="copiar">Copiar enlace</button>
-          <button id="refrescar">Refrescar</button>
-          <a class="btn" id="imprimir" href="#">Imprimir / PDF</a>
-          <span class="pill" id="msgpill">Listo</span>
-        </div>
-      </section>
-
-      <!-- Panel de ayuda / estado -->
-      <aside class="card">
-        <div class="panel" id="ayuda">
-          <h3 style="margin-top:0">¿Cómo funciona?</h3>
-          <ol>
-            <li>Tu QR apunta a una URL como:<br>
-              <code>https://tusitio.com/#CÓDIGO|DNI|NOMBRE%20URLENCODE</code>
-            </li>
-            <li>Este archivo lee el <em>hash</em> <code>#…</code>, separa por <code>|</code> y muestra el fotocheck.</li>
-            <li>Ejemplo válido:<br>
-              <code>https://reddepatas.site/#E46TN211|44160088|P%C3%A9rez%20Reyes%20David</code>
-            </li>
-          </ol>
-          <p class="tiny">Sugerencia: si no llega foto del servidor, se muestra un marcador “FOTO”. Puedes enlazar una imagen propia con la convención de archivo <code>/fotos/{dni}.jpg</code> (ver código JS).</p>
-        </div>
-      </aside>
-    </div>
+  <div id="card">
+    <img id="foto" src="https://via.placeholder.com/150" alt="Foto del paseador">
+    <h2 id="nombre">—</h2>
+    <p><strong>DNI:</strong> <span id="dni">—</span></p>
+    <p><strong>Teléfono:</strong> <span id="telefono">—</span></p>
+    <div id="status">Verificando credencial...</div>
   </div>
-
-<script>
-(function(){
-  "use strict";
-
-  const $ = (id) => document.getElementById(id);
-  const estado = $("estado"), codigo = $("codigo"), dni = $("dni"), nombre = $("nombre"),
-        fecha = $("fecha"), enlace = $("enlace"), foto = $("foto"),
-        copiarBtn = $("copiar"), refrescarBtn = $("refrescar"), imprimir = $("imprimir"),
-        msgpill = $("msgpill");
-
-  function decodeHash(){
-    const raw = window.location.hash.startsWith("#") ? window.location.hash.slice(1) : "";
-    if(!raw){ return {ok:false, reason:"No se encontró información en el enlace (#)."}; }
-    const parts = raw.split("|");
-    if(parts.length < 3){ return {ok:false, reason:"Formato inválido. Se esperaba #CÓDIGO|DNI|NOMBRE"}; }
-    try{
-      return {
-        ok:true,
-        codigo: parts[0],
-        dni: parts[1],
-        nombre: decodeURIComponent(parts.slice(2).join("|")) // permite nombres con |
-      };
-    }catch(e){
-      return {ok:false, reason:"No se pudo decodificar el nombre (URL encoding)."};
-    }
-  }
-
-  function setText(el, txt){ el.textContent = txt; }
-
-  function stamp(){
-    const d = new Date();
-    const tf = new Intl.DateTimeFormat("es-PE", { dateStyle:"medium", timeStyle:"short" });
-    return tf.format(d);
-  }
-
-  async function tryLoadPhoto(dniValue){
-    // Si tienes fotos alojadas, por ejemplo en /fotos/{dni}.jpg, descomenta esto:
-    // const url = `/fotos/${dniValue}.jpg`;
-    // return loadPhoto(url);
-
-    // Placeholder: si quieres usar un avatar público según iniciales, puedes integrar luego.
-    foto.textContent = "FOTO";
-  }
-
-  function loadPhoto(url){
-    return new Promise((resolve)=>{
-      const img = new Image();
-      img.onload = ()=>{
-        foto.textContent = "";
-        foto.style.border = "1px solid #1f2a44";
-        foto.style.background = `center/cover no-repeat url("${url}")`;
-        resolve(true);
-      };
-      img.onerror = ()=>resolve(false);
-      img.src = url;
-    });
-  }
-
-  function updateUI(){
-    const parsed = decodeHash();
-    enlace.textContent = location.href;
-    if(parsed.ok){
-      setText(estado, "Válido"); estado.className = "value ok";
-      setText(codigo, parsed.codigo || "—");
-      setText(dni, parsed.dni || "—");
-      setText(nombre, parsed.nombre || "—");
-      setText(fecha, stamp());
-      tryLoadPhoto(parsed.dni);
-      msg("Hash leído correctamente.");
-    }else{
-      setText(estado, "Inválido"); estado.className = "value warn";
-      setText(codigo, "—"); setText(dni, "—"); setText(nombre, parsed.reason);
-      setText(fecha, stamp());
-      msg(parsed.reason);
-    }
-  }
-
-  function msg(t){
-    msgpill.textContent = t;
-    msgpill.style.opacity = "1";
-    clearTimeout(msg._t);
-    msg._t = setTimeout(()=> msgpill.style.opacity = ".6", 2000);
-  }
-
-  copiarBtn.addEventListener("click", async ()=>{
-    try{
-      await navigator.clipboard.writeText(location.href);
-      msg("Enlace copiado");
-    }catch(e){ msg("No se pudo copiar"); }
-  });
-
-  refrescarBtn.addEventListener("click", ()=>{
-    updateUI();
-    msg("Refrescado");
-  });
-
-  imprimir.addEventListener("click", (e)=>{
-    e.preventDefault();
-    window.print();
-  });
-
-  // Inicial
-  updateUI();
-
-  // Si el hash cambia (ej: pruebas manuales)
-  window.addEventListener("hashchange", updateUI);
-})();
-</script>
 </body>
 </html>
