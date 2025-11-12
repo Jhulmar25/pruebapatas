@@ -1,0 +1,89 @@
+body {
+  background: #f1f5f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+}
+
+.credencial {
+  width: 280px;
+  height: 450px;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  overflow: hidden;
+  text-align: center;
+  padding: 10px 0;
+  border: 1.5px solid #dbe0e6;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  color: #0b2545;
+  font-weight: 800;
+  margin: 0;
+}
+
+header .subtitulo {
+  font-size: 1rem;
+  color: #1e293b;
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.logo {
+  width: 200px;
+  height: auto;
+  margin-bottom: 4px;
+}
+
+.contenido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 3px solid #d3a978;
+  margin: 5px 0;
+  padding-top: 10px;
+}
+
+.foto {
+  width: 120px;
+  height: 140px;
+  border: 1.5px solid #333;
+  margin-bottom: 10px;
+}
+
+.foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.datos {
+  text-align: left;
+  width: 80%;
+  font-size: 0.9rem;
+  color: #0b1220;
+}
+
+.datos p {
+  margin: 5px 0;
+}
+
+.datos strong {
+  color: #003366;
+}
+
+footer {
+  font-size: 0.8rem;
+  margin-top: 10px;
+  color: #475569;
+}
+
+footer a {
+  color: #1e40af;
+  text-decoration: none;
+}
