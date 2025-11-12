@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Credencial | Red de Patas</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
   <div class="credencial">
     <header>
       <h1>RED DE PATAS</h1>
       <p class="subtitulo">"San Isidro"</p>
-      <img src="red-de-patas.jpg" alt="Logo Red de Patas" class="logo">
+      <img src="red-de-patas.jpg" alt="Logo Red de Patas" class="logo" />
     </header>
 
     <div class="contenido">
       <div class="foto">
-        <img id="foto" src="https://via.placeholder.com/120x140" alt="Foto del Paseador">
+        <img id="foto" src="https://via.placeholder.com/120x140" alt="Foto del Paseador" />
       </div>
       <div class="datos">
         <p><strong>NOMBRE:</strong> <span id="nombre">—</span></p>
@@ -39,6 +38,7 @@
         return;
       }
 
+      // Extraer el código antes del primer '|'
       const codigo = hash.split("|")[0];
       const apiURL = `https://red-de-patas-api-812893065625.us-central1.run.app/api/verificar/${codigo}`;
 
@@ -63,6 +63,5 @@
 
     document.addEventListener("DOMContentLoaded", cargarCredencial);
   </script>
-
 </body>
 </html>
