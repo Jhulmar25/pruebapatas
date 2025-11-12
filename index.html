@@ -1,125 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Verificación de Credencial - Red de Patas</title>
-<script type="module">
-  // ============================================================
-  // 🔥 CONFIGURACIÓN FIREBASE
-  // ============================================================
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyC6yKvIGVzcT2uymCeU8PN42m6bk7daIo0",
-    authDomain: "red-de-patas.firebaseapp.com",
-    projectId: "red-de-patas",
-    storageBucket: "red-de-patas.firebasestorage.app",
-    messagingSenderId: "812893065625",
-    appId: "1:812893065625:web:26c9abe5532b230cd14308",
-    measurementId: "G-DKFRRXQDC7"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  // ============================================================
-  // 🔎 FUNCIÓN PRINCIPAL: VERIFICAR CÓDIGO
-  // ============================================================
-  async function verificarCredencial() {
-    const hash = window.location.hash.substring(1);
-    const partes = hash.split("|");
-    const codigo = partes[0];
-
-    const statusDiv = document.getElementById("status");
-    const card = document.getElementById("card");
-    const nombreEl = document.getElementById("nombre");
-    const dniEl = document.getElementById("dni");
-    const telEl = document.getElementById("telefono");
-    const fotoEl = document.getElementById("foto");
-
-    if (!codigo) {
-      statusDiv.textContent = "⚠️ No se detectó ningún código QR.";
-      statusDiv.className = "error";
-      return;
-    }
-
-    try {
-      const ref = doc(db, "Paseadores", codigo);
-      const snap = await getDoc(ref);
-
-      if (snap.exists()) {
-        const data = snap.data();
-        nombreEl.textContent = data.nombre || "Sin nombre";
-        dniEl.textContent = data.dni || "Sin DNI";
-        telEl.textContent = data.telefono || "Sin teléfono";
-        fotoEl.src = data.foto || "https://via.placeholder.com/150";
-        card.classList.add("valido");
-        statusDiv.textContent = "✅ Credencial verificada";
-        statusDiv.className = "ok";
-      } else {
-        card.classList.add("falso");
-        fotoEl.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Error.svg/1024px-Error.svg.png";
-        nombreEl.textContent = "Credencial no registrada";
-        dniEl.textContent = "—";
-        telEl.textContent = "—";
-        statusDiv.textContent = "❌ QR falsificado o inexistente";
-        statusDiv.className = "error";
-      }
-    } catch (err) {
-      console.error(err);
-      statusDiv.textContent = "⚠️ Error al conectar con el servidor.";
-      statusDiv.className = "error";
-    }
-  }
-
-  window.addEventListener("DOMContentLoaded", verificarCredencial);
-</script>
-
-<style>
-body {
-  background: #0b1220;
-  color: #e6edf3;
-  font-family: system-ui, Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  margin: 0;
-}
-#card {
-  background: #111a2b;
-  border: 2px solid #1f2a44;
-  border-radius: 16px;
-  padding: 20px;
-  max-width: 380px;
-  text-align: center;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
-}
-#card.valido { border-color: #16a34a; }
-#card.falso { border-color: #dc2626; }
-img {
-  width: 140px;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 16px;
-}
-#status.ok { color: #22c55e; font-weight: bold; }
-#status.error { color: #ef4444; font-weight: bold; }
-h2 { margin: 10px 0 5px; font-size: 1.3em; }
-p { margin: 3px 0; color: #94a3b8; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Credencial | Red de Patas</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="card">
-    <img id="foto" src="https://via.placeholder.com/150" alt="Foto del paseador">
-    <h2 id="nombre">—</h2>
-    <p><strong>DNI:</strong> <span id="dni">—</span></p>
-    <p><strong>Teléfono:</strong> <span id="telefono">—</span></p>
-    <div id="status">Verificando credencial...</div>
+
+  <div class="credencial">
+    <header>
+      <h1>RED DE PATAS</h1>
+      <p class="subtitulo">"San Isidro"</p>
+      <img src="red-de-patas.jpg" alt="Logo Red de Patas" class="logo">
+    </header>
+
+    <div class="contenido">
+      <div class="foto">
+        <img id="foto" src="https://via.placeholder.com/120x140" alt="Foto del Paseador">
+      </div>
+      <div class="datos">
+        <p><strong>NOMBRE:</strong> <span id="nombre">—</span></p>
+        <p><strong>DNI:</strong> <span id="dni">—</span></p>
+        <p><strong>CEL.:</strong> <span id="telefono">—</span></p>
+      </div>
+    </div>
+
+    <footer>
+      <p id="estado">Verificación digital — <a href="https://reddepatas.site">reddepatas.site</a></p>
+    </footer>
   </div>
+
+  <script>
+    async function cargarCredencial() {
+      const hash = window.location.hash.substring(1);
+      if (!hash) {
+        document.getElementById("estado").textContent = "⚠️ QR no válido o sin datos.";
+        return;
+      }
+
+      const codigo = hash.split("|")[0];
+      const apiURL = `https://red-de-patas-api-812893065625.us-central1.run.app/api/verificar/${codigo}`;
+
+      try {
+        const resp = await fetch(apiURL);
+        const data = await resp.json();
+
+        if (data.ok) {
+          document.getElementById("nombre").textContent = data.nombre;
+          document.getElementById("dni").textContent = data.dni;
+          document.getElementById("telefono").textContent = data.telefono;
+          document.getElementById("foto").src = data.foto;
+          document.getElementById("estado").textContent = "✅ Credencial verificada";
+        } else {
+          document.getElementById("estado").textContent = "❌ QR no registrado o falsificado";
+        }
+      } catch (err) {
+        console.error(err);
+        document.getElementById("estado").textContent = "⚠️ Error al verificar el QR";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", cargarCredencial);
+  </script>
+
 </body>
 </html>
