@@ -49,7 +49,7 @@ const app = express();
 // ============================================================
 app.use(cors({
   origin: [
-    "https://reddepatas.site",
+    "https://jhulmar25.github.io",
     "http://localhost:5173",
     "http://localhost:8080"
   ],
