@@ -3,17 +3,15 @@ body {
   padding: 0;
   background: #e8edf2;
   font-family: 'Segoe UI', sans-serif;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   min-height: 100vh;
 }
 
-.contenedor {
+.calificar-container {
   width: 92vw;
-  max-width: 380px;
+  max-width: 360px;
   background: white;
   padding: 20px;
   border-radius: 16px;
@@ -22,72 +20,79 @@ body {
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   color: #0b2545;
-  margin-bottom: 5px;
-  font-weight: 800;
+  font-weight: 900;
 }
 
-.sub {
+.codigo-texto {
   font-size: 1rem;
   color: #475569;
   margin-bottom: 20px;
+  font-weight: 600;
 }
 
-.estrellas span {
-  font-size: 40px;
-  cursor: pointer;
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0 14px 0;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #f5f7fa;
+  font-size: 1rem;
+}
+
+.estrellas {
+  font-size: 42px;
   color: #d1d5db;
-  transition: 0.2s;
+  cursor: pointer;
+  margin: 12px 0;
+  letter-spacing: 4px;
 }
 
 .estrellas span.active {
   color: #f8c200;
 }
 
-.formulario {
-  margin-top: 25px;
-  text-align: left;
-}
-
-label {
-  font-weight: 700;
-  color: #1e293b;
-  font-size: 0.95rem;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  margin: 6px 0 14px 0;
-  font-size: 1rem;
-  border-radius: 8px;
-  background: #f1f5f9;
-  border: 1px solid #cbd5e1;
-}
-
 textarea {
   height: 80px;
 }
 
-button {
+.btn-primary {
   width: 100%;
   padding: 12px;
   background: #0b2545;
   color: white;
   border: none;
-  font-size: 1rem;
-  font-weight: 700;
   border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
   cursor: pointer;
+  margin-top: 10px;
 }
 
-button:hover {
+.btn-primary:hover {
   background: #123a6f;
 }
 
-.mensaje {
-  margin-top: 20px;
+.btn-secundario {
+  width: 100%;
+  padding: 10px;
+  background: #6b7280;
+  color: white;
+  border: none;
+  border-radius: 10px;
   font-size: 1rem;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.btn-secundario:hover {
+  background: #4b5360;
+}
+
+.mensaje {
+  font-size: 1rem;
+  margin-top: 15px;
   font-weight: 700;
 }
