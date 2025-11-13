@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calificar Paseador | Red de Patas</title>
+
+  <link rel="stylesheet" href="calificar.css">
+</head>
+
+<body>
+
+  <div class="contenedor">
+
+    <h2 class="titulo">Calificar Paseador</h2>
+
+    <!-- MOSTRAR INFORMACIÓN DEL PASEADOR -->
+    <div class="info-paseador">
+      <p><strong>Nombre:</strong> <span id="nombre"></span></p>
+      <p><strong>DNI:</strong> <span id="dni"></span></p>
+      <p><strong>Código:</strong> <span id="codigo"></span></p>
+    </div>
+
+    <!-- ESTRELLAS -->
+    <div class="estrellas-container">
+      <span class="estrella" data-value="1">★</span>
+      <span class="estrella" data-value="2">★</span>
+      <span class="estrella" data-value="3">★</span>
+      <span class="estrella" data-value="4">★</span>
+      <span class="estrella" data-value="5">★</span>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="formulario">
+
+      <label for="nombreEvaluador">Tu nombre:</label>
+      <input type="text" id="nombreEvaluador" placeholder="Ej: Juan Pérez">
+
+      <label for="dniEvaluador">Tu DNI:</label>
+      <input type="number" id="dniEvaluador" placeholder="Ej: 70123456">
+
+      <label for="comentario">Comentario:</label>
+      <textarea id="comentario" placeholder="Escribe tu experiencia..."></textarea>
+
+      <button id="btnEnviar">Enviar Calificación</button>
+
+    </div>
+
+  </div>
+
+  <script type="module" src="js/calificar.js"></script>
+
+  <script>
+    // MANEJO DE ESTRELLAS VISUALMENTE
+    const estrellas = document.querySelectorAll(".estrella");
+    estrellas.forEach(estrella => {
+      estrella.addEventListener("click", () => {
+        const valor = estrella.getAttribute("data-value");
+
+        // Marcar estrellas seleccionadas
+        estrellas.forEach(e => {
+          if (e.getAttribute("data-value") <= valor) {
+            e.classList.add("activa");
+          } else {
+            e.classList.remove("activa");
+          }
+        });
+
+        // Guardar valor seleccionado en el DOM
+        estrella.parentElement.dataset.rating = valor;
+      });
+    });
+  </script>
+
+</body>
+
+</html>
