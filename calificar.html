@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calificar Paseador | Red de Patas</title>
+
+  <link rel="stylesheet" href="styles-calificar.css" />
+</head>
+<body>
+
+  <div class="contenedor">
+
+    <h2 id="nombrePaseador">Calificando...</h2>
+    <p class="sub">Califica la atención del paseador</p>
+
+    <!-- ⭐ Selector de estrellas -->
+    <div class="estrellas" id="selectorEstrellas">
+      <span data-value="1">★</span>
+      <span data-value="2">★</span>
+      <span data-value="3">★</span>
+      <span data-value="4">★</span>
+      <span data-value="5">★</span>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="formulario">
+
+      <label>Tu Nombre</label>
+      <input id="ciudadanoNombre" type="text" placeholder="Ej: Juan Pérez" />
+
+      <label>Tu DNI</label>
+      <input id="ciudadanoDni" type="text" placeholder="Ej: 74880012" />
+
+      <label>Comentario (opcional)</label>
+      <textarea id="comentario" placeholder="Escribe tu experiencia..."></textarea>
+
+      <button id="btnEnviar">Enviar Calificación</button>
+    </div>
+
+    <p id="mensaje" class="mensaje"></p>
+  </div>
+
+  <script type="module" src="js/calificar.js"></script>
+</body>
+</html>
