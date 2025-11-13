@@ -18,7 +18,7 @@ html, body {
 .credencial {
   width: 92vw;
   max-width: 360px;
-  height: 88vh;
+  height: 75vh;
   background: white;
 
   border-radius: 18px;        
@@ -120,28 +120,41 @@ header {
 /* ============================================================
    BOTONES DE FEEDBACK
    ============================================================ */
+/* ============================================================
+   BOTONES DE FEEDBACK — NUEVA VERSIÓN
+   ============================================================ */
 .acciones-feedback {
-  margin-top: 12px;
+  margin-top: 18px;
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 18px;
+  width: 100%;
 }
 
 .acciones-feedback button {
-  padding: 6px 13px;
+  width: 48%;                 /* Ocupan casi toda la credencial */
+  padding: 14px 0;            /* Más altos */
   border: none;
   background: #0b2545;
   color: white;
-  border-radius: 6px;
-  font-size: 0.9rem;
+  border-radius: 10px;
+  font-size: 1.1rem;          /* Texto más grande */
   cursor: pointer;
-  font-weight: 600;
-  transition: 0.2s;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  transition: 0.15s ease-in-out;
+  letter-spacing: 0.5px;
 }
 
 .acciones-feedback button:hover {
   background: #123a6f;
+  transform: scale(1.04);
 }
+
+.acciones-feedback button:active {
+  transform: scale(0.97);
+}
+
 
 /* ============================================================
    FOOTER
