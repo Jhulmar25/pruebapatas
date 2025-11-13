@@ -1,61 +1,77 @@
-/* ======== FONDO GENERAL ======== */
+/* ============================================================
+   FONDO GENERAL
+   ============================================================ */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   font-family: 'Segoe UI', sans-serif;
-  background: #f1f5f9;
+  background: #e8edf2;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* ======== TARJETA ======== */
+/* ============================================================
+   TARJETA FOTOCHECK
+   ============================================================ */
 .credencial {
   width: 92vw;
-  max-width: 380px;
-  height: 85vh;
+  max-width: 360px;
+  height: 88vh;
   background: white;
-  overflow: hidden;
-  border-radius: 0;
-  border: none;
+
+  border-radius: 18px;        
+  border: 2px solid #d4d4d4;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding-top: 10px;
+  overflow: hidden;
 }
 
-/* ======== LOGO ======== */
+/* ============================================================
+   LOGO
+   ============================================================ */
+header {
+  text-align: center;
+  padding: 12px 0;
+}
+
 .logo {
-  width: 210px;
+  width: 180px;
   height: auto;
-  display: block;
-  margin: 0 auto;
 }
 
-/* ======== CONTENIDO ======== */
+/* ============================================================
+   CONTENIDO PRINCIPAL
+   ============================================================ */
 .contenido {
+  flex-grow: 1;
   border-top: 3px solid #d3a978;
-  padding-top: 12px;
+  padding-top: 15px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex-grow: 1;
 }
 
-/* ======== FOTO CENTRADA ======== */
+/* ============================================================
+   FOTO
+   ============================================================ */
 .foto {
   width: 150px;
   height: 170px;
   border: 2px solid #333;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
-  margin-top: 10px;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  margin-bottom: 15px;
 }
 
 .foto img {
@@ -64,34 +80,77 @@ html, body {
   object-fit: cover;
 }
 
-/* ======== DATOS ======== */
+/* ============================================================
+   DATOS
+   ============================================================ */
 .datos {
-  width: 92%;
+  width: 85%;
   text-align: center;
-  margin-top: 14px;
+  margin-top: 5px;
 }
 
-.datos p {
-  margin: 6px 0;
+.dato-linea {
   font-size: 1.15rem;
   font-weight: 700;
   color: #1e293b;
+
+  margin: 8px 0;
   letter-spacing: 0.3px;
 }
 
-.datos strong {
-  font-weight: 900;
+.dato-linea strong {
   color: #002b5c;
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
 }
 
-/* ======== FOOTER ======== */
+/* ============================================================
+   CALIFICACIÓN
+   ============================================================ */
+.bloque-calificacion {
+  margin-top: -15px;       /* ⭐ Subimos las estrellas */
+}
+
+.estrellas {
+  font-size: 3rem;     /* ⭐ Tamaño ideal */
+  color: #f8c200;        /* Amarillo */
+  letter-spacing: 6px;   /* ⭐ Separación elegante */
+}
+
+/* ============================================================
+   BOTONES DE FEEDBACK
+   ============================================================ */
+.acciones-feedback {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.acciones-feedback button {
+  padding: 6px 13px;
+  border: none;
+  background: #0b2545;
+  color: white;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.acciones-feedback button:hover {
+  background: #123a6f;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
 footer {
   text-align: center;
-  padding: 8px 0;
-  color: #475569;
+  padding: 8px 0 12px 0;
   font-size: 0.9rem;
+  color: #475569;
 }
 
 footer a {
