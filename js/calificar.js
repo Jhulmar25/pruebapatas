@@ -1,72 +1,77 @@
-// js/calificar.js
+// ================================
+// 1. Obtener código desde la URL
+// ================================
+const params = new URLSearchParams(window.location.search);
+const codigo = params.get("codigo");
 
-// 1. Obtener el código desde la URL
-const url = new URL(window.location.href);
-const codigo = url.searchParams.get("codigo");
+if (!codigo) {
+  alert("Código inválido");
+  window.location.href = "index.html";
+}
 
 document.getElementById("codigoTexto").textContent = `Código: ${codigo}`;
 
-// 2. Sistema de estrellas
-const estrellasDiv = document.getElementById("estrellasContainer");
-let estrellasSeleccionadas = 5;
+const backendURL = "https://red-de-patas-api-812893065625.us-central1.run.app";
 
-estrellasDiv.addEventListener("click", (e) => {
-  if (e.target.textContent === "★") {
-    const index = [...estrellasDiv.textContent].indexOf(e.target.textContent);
-    estrellasSeleccionadas = [...estrellasDiv.textContent].indexOf(e.target) + 1;
-  }
+// ================================
+// 2. Selección de estrellas
+// ================================
+let estrellasSeleccionadas = 0;
+
+document.querySelectorAll(".estrellas span").forEach((star, i) => {
+  star.addEventListener("click", () => {
+    estrellasSeleccionadas = i + 1;
+
+    document.querySelectorAll(".estrellas span").forEach(s => s.classList.remove("active"));
+    for (let j = 0; j <= i; j++) {
+      document.querySelectorAll(".estrellas span")[j].classList.add("active");
+    }
+  });
 });
 
-estrellasDiv.addEventListener("mousemove", (e) => {
-  if (e.target.textContent === "★") {
-    let pos = [...estrellasDiv.children].indexOf(e.target);
-  }
-});
-
-// 3. Enviar al backend
-document.getElementById("btnEnviarCalificacion").addEventListener("click", async () => {
+// ================================
+// 3. Enviar calificación
+// ================================
+document.getElementById("btnEnviar").addEventListener("click", async () => {
 
   const ciudadanoNombre = document.getElementById("ciudadanoNombre").value.trim();
   const ciudadanoDni = document.getElementById("ciudadanoDni").value.trim();
   const comentario = document.getElementById("comentario").value.trim();
 
-  if (!ciudadanoNombre || !ciudadanoDni) {
-    alert("Debes completar tu nombre y DNI");
-    return;
+  if (!estrellasSeleccionadas) {
+    return alert("Selecciona una cantidad de estrellas.");
   }
 
-  const backendURL = "https://red-de-patas-api-812893065625.us-central1.run.app/api/calificar";
+  if (!ciudadanoNombre || !ciudadanoDni) {
+    return alert("Ingresa tu nombre y DNI.");
+  }
 
-  try {
-    const resp = await fetch(`${backendURL}/${codigo}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ciudadanoNombre,
-        ciudadanoDni,
-        estrellas: estrellasSeleccionadas,
-        comentario
-      })
-    });
+  const resp = await fetch(`${backendURL}/api/calificar/${codigo}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      ciudadanoNombre,
+      ciudadanoDni,
+      estrellas: estrellasSeleccionadas,
+      comentario
+    })
+  });
 
-    const data = await resp.json();
+  const data = await resp.json();
 
-    if (!data.ok) {
-      alert("⚠️ Error guardando calificación");
-      return;
-    }
+  if (data.ok) {
+    document.getElementById("mensaje").textContent =
+      `Gracias por calificar ⭐ Promedio: ${data.promedio} (${data.votos} votos)`;
 
-    alert(`✔ Calificación enviada\nPromedio actual: ${data.promedio} ⭐`);
-
-    window.location.href = `index.html#${codigo}`;
-
-  } catch (err) {
-    console.error(err);
-    alert("⚠️ Error enviando al servidor.");
+    document.getElementById("btnEnviar").style.display = "none";
+  } else {
+    alert("Error enviando calificación.");
   }
 });
 
-// 4. Volver
+// ================================
+// 4. Volver a credencial
+// ================================
 document.getElementById("btnVolver").addEventListener("click", () => {
   window.location.href = `index.html#${codigo}`;
 });
