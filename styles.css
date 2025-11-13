@@ -15,7 +15,7 @@ html, body {
 .credencial {
   width: 92vw;
   max-width: 380px;
-  height: 100vh;               /* 🔥 ocupa toda la pantalla */
+  height: 90vh;               /* 🔥 ocupa toda la pantalla */
   background: white;
   border-radius: 0;            /* 🔥 sin bordes redondeados para no desbordar */
   overflow: hidden;            /* 🔥 evita scroll interno */
