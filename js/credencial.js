@@ -1,63 +1,62 @@
-// =========================
-//   LEER DATOS DEL QR
-// =========================
-const hash = window.location.hash.substring(1);
-const partes = hash.split("|");
+import { db } from "../backend/firebase.js";
+import { doc, getDoc } from "firebase/firestore";
 
-if (partes.length !== 3) {
-    mostrarError("QR inválido o incompleto");
-} else {
-    const codigo = partes[0];
-    const dni = partes[1];
-    const nombre = decodeURIComponent(partes[2]);
+// ===============================
+// 1. LEER EL CÓDIGO DESDE EL QR
+// ===============================
+const hash = window.location.hash.substring(1); 
+// Ejemplo:  #C41TF593  →  "C41TF593"
 
-    // Mostrar datos iniciales
-    document.getElementById("nombre").textContent = nombre;
-    document.getElementById("dni").textContent = dni;
-
-    // Mostrar foto (desde Firebase Storage)
-    const fotoURL = `https://firebasestorage.googleapis.com/v0/b/red-de-patas.firebasestorage.app/o/paseadores%20de%20perros%2F${codigo}.jpg?alt=media`;
-
-    document.getElementById("fotoPaseador").src = fotoURL;
-
-    // Consultar API para obtener celular
-    obtenerDatos(codigo);
-}
+const codigo = hash && hash.trim();
+if (!codigo) mostrarError("QR inválido o incompleto.");
 
 
-// =========================
-//   CONSULTAR FIRESTORE API
-// =========================
-async function obtenerDatos(codigo) {
+// ===============================
+// 2. FUNCIÓN PRINCIPAL
+// ===============================
+async function cargarPaseador() {
     try {
-        const apiURL = `https://red-de-patas-api-812893065625.us-central1.run.app/paseador/${codigo}`;
-        const resp = await fetch(apiURL);
+        const ref = doc(db, "Paseadores", codigo);
+        const snap = await getDoc(ref);
 
-        if (!resp.ok) throw new Error("No existe");
+        if (!snap.exists()) {
+            mostrarError("❌ Credencial NO está registrada en el sistema.");
+            return;
+        }
 
-        const data = await resp.json();
+        const datos = snap.data();
 
-        document.getElementById("cel").textContent = data.telefono || "No registrado";
+        // ===============================
+        // 3. MOSTRAR DATOS EN LA CREDENCIAL
+        // ===============================
+
+        document.getElementById("nombre").textContent =
+            datos.nombre || "—";
+
+        document.getElementById("dni").textContent =
+            datos.dni || "—";
+
+        document.getElementById("telefono").textContent =
+            datos.telefono || "—";
+
+        document.getElementById("foto").src =
+            datos.foto || "https://via.placeholder.com/150x170";
 
     } catch (err) {
-        mostrarError("No se encontró el paseador en la base de datos");
+        console.error(err);
+        mostrarError("⚠️ Error al conectarse con el servidor.");
     }
 }
 
 
-// =========================
-//   MANEJO DE ERRORES
-// =========================
+// ===============================
+// 4. FUNCIÓN DE ERROR
+// ===============================
 function mostrarError(msg) {
     document.getElementById("nombre").textContent = "—";
     document.getElementById("dni").textContent = "—";
-    document.getElementById("cel").textContent = "—";
-
-    const cred = document.querySelector(".credencial");
-
-    cred.innerHTML += `
-        <p style="color:red; font-weight:bold; margin-top:15px;">
-            ⚠️ ${msg}
-        </p>
-    `;
+    document.getElementById("telefono").textContent = "—";
+    alert(msg);
 }
+
+cargarPaseador();
