@@ -1,5 +1,7 @@
-// credencial.js
+// js/credencial.js
+
 document.addEventListener("DOMContentLoaded", async () => {
+
   const hash = window.location.hash.substring(1);
   const codigo = hash.split("|")[0];
 
@@ -8,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // URL del backend en Cloud Run
+  // URL de tu backend que sí puede usar Firebase
   const backendURL = "https://red-de-patas-api-812893065625.us-central1.run.app/paseador";
 
   try {
@@ -16,20 +18,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     const data = await resp.json();
 
     if (!data.ok) {
-      alert("❌ Esta credencial NO existe en el sistema.");
+      alert("❌ Esta credencial NO está registrada.");
       return;
     }
 
-    // Asignar los datos en la tarjeta
-    document.getElementById("nombre").textContent = data.nombre;
-    document.getElementById("dni").textContent = data.dni;
-    document.getElementById("telefono").textContent = data.telefono;
+    // Mostrar datos en la credencial
+    document.getElementById("nombre").textContent = data.nombre || "—";
+    document.getElementById("dni").textContent = data.dni || "—";
+    document.getElementById("telefono").textContent = data.telefono || "—";
 
     // Foto desde Firebase Storage
-    document.getElementById("foto").src = data.foto;
+    document.getElementById("foto").src = data.foto || "https://placehold.co/150x170";
 
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     alert("⚠️ Error conectando con el servidor.");
   }
 });
