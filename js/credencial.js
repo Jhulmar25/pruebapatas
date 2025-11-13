@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // URL real del backend
   const backendURL = "https://red-de-patas-api-812893065625.us-central1.run.app/api/verificar";
 
   try {
@@ -22,12 +21,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    // Mostrar datos
     document.getElementById("nombre").textContent = data.nombre || "—";
     document.getElementById("dni").textContent = data.dni || "—";
     document.getElementById("telefono").textContent = data.telefono || "—";
 
-    // Foto desde Firebase Storage
     document.getElementById("foto").src =
       data.foto || "https://placehold.co/150x170";
 
@@ -35,4 +32,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error(error);
     alert("⚠️ Error conectando con el servidor.");
   }
+
+  // 🔵 BOTÓN "CALIFICAR"
+  document.getElementById("btnCalificar").addEventListener("click", () => {
+    window.location.href = `calificar.html?codigo=${codigo}`;
+  });
+
+  // 🔵 BOTÓN "VER COMENTARIOS"
+  document.getElementById("btnComentarios").addEventListener("click", () => {
+    window.location.href = `comentarios.html?codigo=${codigo}`;
+  });
+
 });
