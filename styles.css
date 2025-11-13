@@ -1,27 +1,26 @@
 /* ======== FONDO GENERAL ======== */
-body {
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;           /* 🔥 NO SCROLL EN TODA LA PÁGINA */
+  font-family: 'Segoe UI', sans-serif;
   background: #f1f5f9;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;               /* Ocupa toda la pantalla del móvil */
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
 }
 
-/* ======== TARJETA / CREDENCIAL ======== */
+/* ======== TARJETA ======== */
 .credencial {
-  width: 92vw;                 /* Ancho casi total en móviles */
-  max-width: 380px;            /* Límite elegante */
-  height: 92vh;                /* Alta casi completa */
+  width: 92vw;
+  max-width: 380px;
+  height: 100vh;               /* 🔥 ocupa toda la pantalla */
   background: white;
-  border-radius: 25px;
-  box-shadow: 0 6px 25px rgba(0,0,0,0.18);
-  overflow: hidden;
-  text-align: center;
-  border: 1.7px solid #dbe0e6;
-
-  /* Distribución vertical perfecta */
+  border-radius: 0;            /* 🔥 sin bordes redondeados para no desbordar */
+  overflow: hidden;            /* 🔥 evita scroll interno */
+  border: none;
+  
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -29,46 +28,44 @@ body {
 
 /* ======== ENCABEZADO ======== */
 header h1 {
-  font-size: 1.9rem;
+  font-size: 1.6rem;
   color: #0b2545;
   font-weight: 900;
-  margin: 12px 0 3px 0;
+  margin: 8px 0 2px 0;
 }
 
 header .subtitulo {
-  font-size: 1.15rem;
+  font-size: 1rem;
   color: #1e293b;
   font-style: italic;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
-/* ======== LOGO DE LA ORGANIZACIÓN ======== */
+/* ======== LOGO ======== */
 .logo {
-  width: 230px;
+  width: 200px;
   height: auto;
-  margin: 0 auto 10px auto;
 }
 
-/* ======== SEPARADOR DORADO ======== */
+/* ======== SEPARADOR ======== */
 .contenido {
   border-top: 3px solid #d3a978;
-  margin-top: 5px;
-  padding-top: 18px;
+  padding-top: 10px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex-grow: 1;                 /* Empuja contenido hacia abajo */
+  flex-grow: 1;
 }
 
-/* ======== FOTO DEL PASEADOR ======== */
+/* ======== FOTO ======== */
 .foto {
-  width: 170px;
-  height: 200px;
+  width: 150px;
+  height: 170px;
   border: 2px solid #333;
-  border-radius: 10px;
+  border-radius: 8px;
   overflow: hidden;
-  margin-bottom: 16px;
+  margin-top: 10px;
 }
 
 .foto img {
@@ -77,52 +74,31 @@ header .subtitulo {
   object-fit: cover;
 }
 
-/* ======== DATOS PERSONALES ======== */
+/* ======== DATOS ======== */
 .datos {
-  width: 90%;
+  width: 92%;
   text-align: center;
+  margin-top: 12px;
 }
 
 .datos p {
-  margin: 8px 0;
-  font-size: 1.3rem;             /* GRANDE para móviles */
-  font-weight: 700;              /* Elegante y fuerte */
+  margin: 5px 0;
+  font-size: 1.1rem;         /* elegante y visible */
+  font-weight: 700;
   color: #1e293b;
   letter-spacing: 0.3px;
 }
 
 .datos strong {
-  font-weight: 900;              /* Etiquetas en negrita máxima */
+  font-weight: 900;
   color: #002b5c;
   text-transform: uppercase;
   letter-spacing: 0.8px;
 }
 
-/* ======== PIE DE PÁGINA ======== */
+/* ======== FOOTER ======== */
 footer {
-  font-size: 0.9rem;
-  margin-top: auto;
-  padding-bottom: 12px;
+  font-size: 0.85rem;
+  margin-bottom: 6px;         /* pequeño margen */
   color: #475569;
-}
-
-footer a {
-  color: #1e40af;
-  text-decoration: none;
-}
-
-/* ======== RESPONSIVE EXTRA ======== */
-@media (max-height: 680px) {
-  .credencial {
-    height: 100vh;               /* Para pantallas muy pequeñas */
-  }
-  
-  .foto {
-    width: 150px;
-    height: 170px;
-  }
-
-  .datos p {
-    font-size: 1.15rem;
-  }
 }
