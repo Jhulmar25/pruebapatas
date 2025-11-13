@@ -4,64 +4,71 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
+  height: 100vh;               /* Ocupa toda la pantalla del móvil */
   margin: 0;
-  padding: 20px 0;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 /* ======== TARJETA / CREDENCIAL ======== */
 .credencial {
-  width: 340px;
+  width: 92vw;                 /* Ancho casi total en móviles */
+  max-width: 380px;            /* Límite elegante */
+  height: 92vh;                /* Alta casi completa */
   background: white;
-  border-radius: 22px;
+  border-radius: 25px;
   box-shadow: 0 6px 25px rgba(0,0,0,0.18);
   overflow: hidden;
   text-align: center;
-  padding: 18px 0 28px 0;
   border: 1.7px solid #dbe0e6;
+
+  /* Distribución vertical perfecta */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
-/* ======== TITULOS ======== */
+/* ======== ENCABEZADO ======== */
 header h1 {
-  font-size: 1.7rem;
+  font-size: 1.9rem;
   color: #0b2545;
   font-weight: 900;
-  margin: 0;
+  margin: 12px 0 3px 0;
 }
 
 header .subtitulo {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   color: #1e293b;
   font-style: italic;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
-/* ======== LOGO ======== */
+/* ======== LOGO DE LA ORGANIZACIÓN ======== */
 .logo {
-  width: 220px;
+  width: 230px;
   height: auto;
-  margin-bottom: 8px;
+  margin: 0 auto 10px auto;
 }
 
-/* ======== SEPARADOR ======== */
+/* ======== SEPARADOR DORADO ======== */
 .contenido {
+  border-top: 3px solid #d3a978;
+  margin-top: 5px;
+  padding-top: 18px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-top: 3px solid #d3a978;
-  margin: 5px 0;
-  padding-top: 15px;
+  flex-grow: 1;                 /* Empuja contenido hacia abajo */
 }
 
 /* ======== FOTO DEL PASEADOR ======== */
 .foto {
-  width: 150px;
-  height: 170px;
+  width: 170px;
+  height: 200px;
   border: 2px solid #333;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .foto img {
@@ -74,29 +81,28 @@ header .subtitulo {
 .datos {
   width: 90%;
   text-align: center;
-  margin-top: 12px;
 }
 
 .datos p {
-  margin: 7px 0;
-  font-size: 1.15rem;      /* Más grande para ver en celular */
-  font-weight: 700;        /* Negrita elegante */
+  margin: 8px 0;
+  font-size: 1.3rem;             /* GRANDE para móviles */
+  font-weight: 700;              /* Elegante y fuerte */
   color: #1e293b;
   letter-spacing: 0.3px;
-  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 .datos strong {
-  font-weight: 900;        /* Negrita fuerte para el label */
+  font-weight: 900;              /* Etiquetas en negrita máxima */
   color: #002b5c;
   text-transform: uppercase;
-  letter-spacing: 0.7px;
+  letter-spacing: 0.8px;
 }
 
 /* ======== PIE DE PÁGINA ======== */
 footer {
-  font-size: 0.85rem;
-  margin-top: 14px;
+  font-size: 0.9rem;
+  margin-top: auto;
+  padding-bottom: 12px;
   color: #475569;
 }
 
@@ -105,19 +111,18 @@ footer a {
   text-decoration: none;
 }
 
-/* ======== RESPONSIVE (para pantallas pequeñas) ======== */
-@media (max-width: 420px) {
+/* ======== RESPONSIVE EXTRA ======== */
+@media (max-height: 680px) {
   .credencial {
-    width: 92%;
-    padding-bottom: 35px;
+    height: 100vh;               /* Para pantallas muy pequeñas */
   }
-
+  
   .foto {
-    width: 155px;
-    height: 180px;
+    width: 150px;
+    height: 170px;
   }
 
   .datos p {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
   }
 }
