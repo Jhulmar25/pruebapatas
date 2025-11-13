@@ -64,18 +64,28 @@ header .subtitulo {
 
 .datos {
   text-align: left;
-  width: 80%;
-  font-size: 0.9rem;
-  color: #0b1220;
+  width: 85%;
+  margin-top: 5px;
 }
 
 .datos p {
-  margin: 5px 0;
+  margin: 6px 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1e293b;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  letter-spacing: 0.2px;
 }
 
 .datos strong {
-  color: #003366;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #002b5c;
+  margin-right: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
+
 
 footer {
   font-size: 0.8rem;
