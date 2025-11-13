@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calificar Paseador | Red de Patas</title>
 
+  <!-- Archivo CSS exclusivo para esta pantalla -->
   <link rel="stylesheet" href="styles-calificar.css" />
 </head>
+
 <body>
 
-  <div class="contenedor">
+  <div class="calificar-container">
 
-    <h2 id="nombrePaseador">Calificando...</h2>
-    <p class="sub">Califica la atención del paseador</p>
+    <h2>Calificar Paseador</h2>
 
-    <!-- ⭐ Selector de estrellas -->
-    <div class="estrellas" id="selectorEstrellas">
+    <!-- Aquí mostramos el código del paseador -->
+    <p id="codigoTexto" class="codigo-texto"></p>
+
+    <!-- DATOS DEL CIUDADANO -->
+    <input type="text" id="ciudadanoNombre" placeholder="Tu Nombre completo" />
+    <input type="number" id="ciudadanoDni" placeholder="Tu DNI" />
+
+    <!-- ESTRELLAS -->
+    <div class="estrellas" id="estrellasContainer">
       <span data-value="1">★</span>
       <span data-value="2">★</span>
       <span data-value="3">★</span>
@@ -23,24 +32,18 @@
       <span data-value="5">★</span>
     </div>
 
-    <!-- FORMULARIO -->
-    <div class="formulario">
+    <!-- COMENTARIO -->
+    <textarea id="comentario" placeholder="Comentario (opcional)"></textarea>
 
-      <label>Tu Nombre</label>
-      <input id="ciudadanoNombre" type="text" placeholder="Ej: Juan Pérez" />
-
-      <label>Tu DNI</label>
-      <input id="ciudadanoDni" type="text" placeholder="Ej: 74880012" />
-
-      <label>Comentario (opcional)</label>
-      <textarea id="comentario" placeholder="Escribe tu experiencia..."></textarea>
-
-      <button id="btnEnviar">Enviar Calificación</button>
-    </div>
+    <!-- BOTONES -->
+    <button id="btnEnviar" class="btn-primary">Enviar Calificación</button>
+    <button id="btnVolver" class="btn-secundario">Volver a la Credencial</button>
 
     <p id="mensaje" class="mensaje"></p>
+
   </div>
 
   <script type="module" src="js/calificar.js"></script>
+
 </body>
 </html>
