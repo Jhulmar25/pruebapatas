@@ -1,3 +1,5 @@
+// js/calificar.js
+
 // ================================
 // 1. Obtener código desde la URL
 // ================================
@@ -11,6 +13,7 @@ if (!codigo) {
 
 document.getElementById("codigoTexto").textContent = `Código: ${codigo}`;
 
+// URL del backend
 const backendURL = "https://red-de-patas-api-812893065625.us-central1.run.app";
 
 // ================================
@@ -18,13 +21,13 @@ const backendURL = "https://red-de-patas-api-812893065625.us-central1.run.app";
 // ================================
 let estrellasSeleccionadas = 0;
 
-document.querySelectorAll(".estrellas span").forEach((star, i) => {
+document.querySelectorAll(".estrellas span").forEach((star, index) => {
   star.addEventListener("click", () => {
-    estrellasSeleccionadas = i + 1;
+    estrellasSeleccionadas = index + 1;
 
     document.querySelectorAll(".estrellas span").forEach(s => s.classList.remove("active"));
-    for (let j = 0; j <= i; j++) {
-      document.querySelectorAll(".estrellas span")[j].classList.add("active");
+    for (let i = 0; i <= index; i++) {
+      document.querySelectorAll(".estrellas span")[i].classList.add("active");
     }
   });
 });
@@ -35,15 +38,17 @@ document.querySelectorAll(".estrellas span").forEach((star, i) => {
 document.getElementById("btnEnviar").addEventListener("click", async () => {
 
   const ciudadanoNombre = document.getElementById("ciudadanoNombre").value.trim();
-  const ciudadanoDni = document.getElementById("ciudadanoDni").value.trim();
+  const ciudadanoDni = document.getElementById("ciudadanoidni").value.trim();
   const comentario = document.getElementById("comentario").value.trim();
 
   if (!estrellasSeleccionadas) {
-    return alert("Selecciona una cantidad de estrellas.");
+    alert("Selecciona una cantidad de estrellas.");
+    return;
   }
 
   if (!ciudadanoNombre || !ciudadanoDni) {
-    return alert("Ingresa tu nombre y DNI.");
+    alert("Ingresa tu nombre y DNI.");
+    return;
   }
 
   const resp = await fetch(`${backendURL}/api/calificar/${codigo}`, {
@@ -61,7 +66,7 @@ document.getElementById("btnEnviar").addEventListener("click", async () => {
 
   if (data.ok) {
     document.getElementById("mensaje").textContent =
-      `Gracias por calificar ⭐ Promedio: ${data.promedio} (${data.votos} votos)`;
+      `Gracias por calificar ⭐ Promedio actual: ${data.promedio} (${data.votos} votos)`;
 
     document.getElementById("btnEnviar").style.display = "none";
   } else {
@@ -70,7 +75,7 @@ document.getElementById("btnEnviar").addEventListener("click", async () => {
 });
 
 // ================================
-// 4. Volver a credencial
+// 4. Volver a la credencial
 // ================================
 document.getElementById("btnVolver").addEventListener("click", () => {
   window.location.href = `index.html#${codigo}`;
