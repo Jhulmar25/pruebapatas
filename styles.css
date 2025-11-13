@@ -63,9 +63,9 @@ header .subtitulo {
 }
 
 .datos {
-  text-align: left;
-  width: 85%;
-  margin-top: 5px;
+  width: 100%;
+  text-align: center;      /* CENTRA TODO */
+  margin-top: 10px;
 }
 
 .datos p {
@@ -73,15 +73,14 @@ header .subtitulo {
   font-size: 1rem;
   font-weight: 500;
   color: #1e293b;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   letter-spacing: 0.2px;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 .datos strong {
-  font-size: 1.02rem;
-  font-weight: 700;
+  font-weight: 800;        /* NEGRITA PARA EL LABEL */
   color: #002b5c;
-  margin-right: 3px;
+  margin-right: 4px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
