@@ -3,7 +3,6 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden;           /* 🔥 NO SCROLL EN TODA LA PÁGINA */
   font-family: 'Segoe UI', sans-serif;
   background: #f1f5f9;
   display: flex;
@@ -15,42 +14,29 @@ html, body {
 .credencial {
   width: 92vw;
   max-width: 380px;
-  height: 90vh;               /* 🔥 ocupa toda la pantalla */
+  height: 85vh;
   background: white;
-  border-radius: 0;            /* 🔥 sin bordes redondeados para no desbordar */
-  overflow: hidden;            /* 🔥 evita scroll interno */
+  overflow: hidden;
+  border-radius: 0;
   border: none;
-  
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-}
-
-/* ======== ENCABEZADO ======== */
-header h1 {
-  font-size: 1.6rem;
-  color: #0b2545;
-  font-weight: 900;
-  margin: 8px 0 2px 0;
-}
-
-header .subtitulo {
-  font-size: 1rem;
-  color: #1e293b;
-  font-style: italic;
-  margin-bottom: 8px;
+  padding-top: 10px;
 }
 
 /* ======== LOGO ======== */
 .logo {
-  width: 200px;
+  width: 210px;
   height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
-/* ======== SEPARADOR ======== */
+/* ======== CONTENIDO ======== */
 .contenido {
   border-top: 3px solid #d3a978;
-  padding-top: 10px;
+  padding-top: 12px;
 
   display: flex;
   flex-direction: column;
@@ -58,7 +44,7 @@ header .subtitulo {
   flex-grow: 1;
 }
 
-/* ======== FOTO ======== */
+/* ======== FOTO CENTRADA ======== */
 .foto {
   width: 150px;
   height: 170px;
@@ -66,6 +52,10 @@ header .subtitulo {
   border-radius: 8px;
   overflow: hidden;
   margin-top: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .foto img {
@@ -78,12 +68,12 @@ header .subtitulo {
 .datos {
   width: 92%;
   text-align: center;
-  margin-top: 12px;
+  margin-top: 14px;
 }
 
 .datos p {
-  margin: 5px 0;
-  font-size: 1.1rem;         /* elegante y visible */
+  margin: 6px 0;
+  font-size: 1.15rem;
   font-weight: 700;
   color: #1e293b;
   letter-spacing: 0.3px;
@@ -98,7 +88,14 @@ header .subtitulo {
 
 /* ======== FOOTER ======== */
 footer {
-  font-size: 0.85rem;
-  margin-bottom: 6px;         /* pequeño margen */
+  text-align: center;
+  padding: 8px 0;
   color: #475569;
+  font-size: 0.9rem;
+}
+
+footer a {
+  color: #0b2545;
+  text-decoration: none;
+  font-weight: bold;
 }
