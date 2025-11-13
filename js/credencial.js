@@ -3,6 +3,8 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
   const hash = window.location.hash.substring(1);
+
+  // ej: "C41TF593|63023960|Vizcarra"
   const codigo = hash.split("|")[0];
 
   if (!codigo) {
@@ -10,24 +12,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // URL de tu backend que sí puede usar Firebase
-  const backendURL = "https://red-de-patas-api-812893065625.us-central1.run.app/paseador";
+  const backendURL = "https://red-de-patas-api-812893065625.us-central1.run.app/api/verificar";
 
   try {
-    const resp = await fetch(`${backendURL}?codigo=${codigo}`);
-    const data = await resp.json();
+    const resp = await fetch(`${backendURL}/${codigo}`);
 
-    if (!data.ok) {
-      alert("❌ Esta credencial NO está registrada.");
+    if (!resp.ok) {
+      alert("❌ Credencial NO registrada.");
       return;
     }
 
-    // Mostrar datos en la credencial
+    const data = await resp.json();
+
+    if (!data.ok) {
+      alert("❌ Credencial NO registrada.");
+      return;
+    }
+
+    // Mostrar datos
     document.getElementById("nombre").textContent = data.nombre || "—";
     document.getElementById("dni").textContent = data.dni || "—";
     document.getElementById("telefono").textContent = data.telefono || "—";
-
-    // Foto desde Firebase Storage
     document.getElementById("foto").src = data.foto || "https://placehold.co/150x170";
 
   } catch (error) {
