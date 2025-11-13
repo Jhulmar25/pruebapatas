@@ -60,20 +60,7 @@
   <!-- JS PRINCIPAL -->
   <script type="module" src="js/credencial.js"></script>
 
-  <!-- JS PARA NAVEGAR A CALIFICAR -->
-  <script>
-    document.getElementById("btnCalificar").addEventListener("click", () => {
 
-      // Recuperar los datos desde la credencial
-      const codigo = document.getElementById("dni").dataset.codigo;
-      const dni = document.getElementById("dni").textContent;
-      const nombre = document.getElementById("nombre").textContent;
-
-      // Redirigir a la página para calificar
-      window.location.href = 
-        `calificar.html?codigo=${codigo}&dni=${dni}&nombre=${encodeURIComponent(nombre)}`;
-    });
-  </script>
 
 </body>
 </html>
