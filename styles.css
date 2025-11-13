@@ -108,7 +108,7 @@ header {
    CALIFICACIÓN
    ============================================================ */
 .bloque-calificacion {
-  margin-top: -15px;       /* ⭐ Subimos las estrellas */
+  margin-top: 15px;       /* ⭐ Subimos las estrellas */
 }
 
 .estrellas {
