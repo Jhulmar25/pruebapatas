@@ -1,62 +1,35 @@
-import { db } from "../backend/firebase.js";
-import { doc, getDoc } from "firebase/firestore";
+// credencial.js
+document.addEventListener("DOMContentLoaded", async () => {
+  const hash = window.location.hash.substring(1);
+  const codigo = hash.split("|")[0];
 
-// ===============================
-// 1. LEER EL CÓDIGO DESDE EL QR
-// ===============================
-const hash = window.location.hash.substring(1); 
-// Ejemplo:  #C41TF593  →  "C41TF593"
+  if (!codigo) {
+    alert("QR inválido");
+    return;
+  }
 
-const codigo = hash && hash.trim();
-if (!codigo) mostrarError("QR inválido o incompleto.");
+  // URL del backend en Cloud Run
+  const backendURL = "https://red-de-patas-api-812893065625.us-central1.run.app/paseador";
 
+  try {
+    const resp = await fetch(`${backendURL}?codigo=${codigo}`);
+    const data = await resp.json();
 
-// ===============================
-// 2. FUNCIÓN PRINCIPAL
-// ===============================
-async function cargarPaseador() {
-    try {
-        const ref = doc(db, "Paseadores", codigo);
-        const snap = await getDoc(ref);
-
-        if (!snap.exists()) {
-            mostrarError("❌ Credencial NO está registrada en el sistema.");
-            return;
-        }
-
-        const datos = snap.data();
-
-        // ===============================
-        // 3. MOSTRAR DATOS EN LA CREDENCIAL
-        // ===============================
-
-        document.getElementById("nombre").textContent =
-            datos.nombre || "—";
-
-        document.getElementById("dni").textContent =
-            datos.dni || "—";
-
-        document.getElementById("telefono").textContent =
-            datos.telefono || "—";
-
-        document.getElementById("foto").src =
-            datos.foto || "https://via.placeholder.com/150x170";
-
-    } catch (err) {
-        console.error(err);
-        mostrarError("⚠️ Error al conectarse con el servidor.");
+    if (!data.ok) {
+      alert("❌ Esta credencial NO existe en el sistema.");
+      return;
     }
-}
 
+    // Asignar los datos en la tarjeta
+    document.getElementById("nombre").textContent = data.nombre;
+    document.getElementById("dni").textContent = data.dni;
+    document.getElementById("telefono").textContent = data.telefono;
 
-// ===============================
-// 4. FUNCIÓN DE ERROR
-// ===============================
-function mostrarError(msg) {
-    document.getElementById("nombre").textContent = "—";
-    document.getElementById("dni").textContent = "—";
-    document.getElementById("telefono").textContent = "—";
-    alert(msg);
-}
+    // Foto desde Firebase Storage
+    document.getElementById("foto").src = data.foto;
 
-cargarPaseador();
+  } catch (err) {
+    console.error(err);
+    alert("⚠️ Error conectando con el servidor.");
+  }
+});
