@@ -8,16 +8,19 @@
 </head>
 <body>
   <div class="credencial">
+
     <header>
-      
-      
       <img src="logo.png" alt="Logo Red de Patas" class="logo" />
     </header>
 
     <div class="contenido">
+      
+      <!-- FOTO CENTRADA -->
       <div class="foto">
-        <img id="foto" src="https://via.placeholder.com/120x140" alt="Foto del Paseador" />
+        <img id="foto" src="https://via.placeholder.com/150x170" alt="Foto del Paseador" />
       </div>
+
+      <!-- DATOS -->
       <div class="datos">
         <p><strong>NOMBRE:</strong> <span id="nombre">—</span></p>
         <p><strong>DNI:</strong> <span id="dni">—</span></p>
@@ -26,8 +29,11 @@
     </div>
 
     <footer>
-      <p id="estado">Verificación digital — <a href="https://reddepatas.site">reddepatas.site</a></p>
+      <p id="estado">Verificación digital — 
+        <a href="https://reddepatas.site">reddepatas.site</a>
+      </p>
     </footer>
+
   </div>
 
   <script>
@@ -40,15 +46,17 @@
         return;
       }
 
-      const codigo = hash.split("|")[0];
+      const partes = hash.split("|");
+      const codigo = partes[0];
       const apiURL = `https://red-de-patas-api-812893065625.us-central1.run.app/api/verificar/${codigo}`;
+
       console.log("Consultando:", apiURL);
 
       try {
         const resp = await fetch(apiURL);
+
         if (!resp.ok) {
-          console.error("HTTP error:", resp.status);
-          estado.textContent = "⚠️ Error al verificar el QR (HTTP " + resp.status + ")";
+          estado.textContent = `⚠️ Error al verificar el QR (HTTP ${resp.status})`;
           return;
         }
 
@@ -59,11 +67,12 @@
           document.getElementById("nombre").textContent = data.nombre || "—";
           document.getElementById("dni").textContent = data.dni || "—";
           document.getElementById("telefono").textContent = data.telefono || "—";
-          document.getElementById("foto").src = data.foto || "https://via.placeholder.com/120x140";
+          document.getElementById("foto").src = data.foto || "https://via.placeholder.com/150x170";
           estado.textContent = "✅ Credencial verificada";
         } else {
           estado.textContent = "❌ QR no registrado o falsificado";
         }
+
       } catch (err) {
         console.error("Error de red:", err);
         estado.textContent = "⚠️ Error al conectar con el servidor";
@@ -72,5 +81,6 @@
 
     document.addEventListener("DOMContentLoaded", cargarCredencial);
   </script>
+
 </body>
 </html>
