@@ -4,82 +4,75 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Credencial | Red de Patas</title>
+
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
   <div class="credencial">
 
-    <header>
+    <!-- LOGO -->
+    <header class="header">
       <img src="logo.png" alt="Logo Red de Patas" class="logo" />
     </header>
 
+    <!-- CONTENIDO PRINCIPAL -->
     <div class="contenido">
-      
-      <!-- FOTO CENTRADA -->
+
+      <!-- FOTO -->
       <div class="foto">
         <img id="foto" src="https://via.placeholder.com/150x170" alt="Foto del Paseador" />
       </div>
 
-      <!-- DATOS -->
+      <!-- BLOQUE DE DATOS -->
       <div class="datos">
-        <p><strong>NOMBRE:</strong> <span id="nombre">—</span></p>
-        <p><strong>DNI:</strong> <span id="dni">—</span></p>
-        <p><strong>CEL.:</strong> <span id="telefono">—</span></p>
+
+        <div class="dato-linea">
+          <strong>NOMBRE:</strong> <span id="nombre">—</span>
+        </div>
+
+        <div class="dato-linea">
+          <!-- ⛔ Esta línea necesita guardar el código del paseador -->
+          <!-- lo haremos con data-codigo -->
+          <strong>DNI:</strong> 
+          <span id="dni" data-codigo="">—</span>
+        </div>
+
+        <div class="dato-linea">
+          <strong>CEL.:</strong> <span id="telefono">—</span>
+        </div>
+
+        <!-- CALIFICACIÓN -->
+        <div class="bloque-calificacion">
+          <div id="estrellas" class="estrellas">★★★★★</div>
+
+          <div class="acciones-feedback">
+            <button id="btnCalificar">Calificar</button>
+            <button id="btnComentarios">Ver comentarios</button>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <footer>
-      <p id="estado">Verificación digital — 
-        <a href="https://reddepatas.site">reddepatas.site</a>
-      </p>
-    </footer>
-
   </div>
 
+  <!-- JS PRINCIPAL -->
+  <script type="module" src="js/credencial.js"></script>
+
+  <!-- JS PARA NAVEGAR A CALIFICAR -->
   <script>
-    async function cargarCredencial() {
-      const hash = window.location.hash.substring(1);
-      const estado = document.getElementById("estado");
+    document.getElementById("btnCalificar").addEventListener("click", () => {
 
-      if (!hash) {
-        estado.textContent = "⚠️ QR no válido o sin datos.";
-        return;
-      }
+      // Recuperar los datos desde la credencial
+      const codigo = document.getElementById("dni").dataset.codigo;
+      const dni = document.getElementById("dni").textContent;
+      const nombre = document.getElementById("nombre").textContent;
 
-      const partes = hash.split("|");
-      const codigo = partes[0];
-      const apiURL = `https://red-de-patas-api-812893065625.us-central1.run.app/api/verificar/${codigo}`;
-
-      console.log("Consultando:", apiURL);
-
-      try {
-        const resp = await fetch(apiURL);
-
-        if (!resp.ok) {
-          estado.textContent = `⚠️ Error al verificar el QR (HTTP ${resp.status})`;
-          return;
-        }
-
-        const data = await resp.json();
-        console.log("Respuesta:", data);
-
-        if (data.ok) {
-          document.getElementById("nombre").textContent = data.nombre || "—";
-          document.getElementById("dni").textContent = data.dni || "—";
-          document.getElementById("telefono").textContent = data.telefono || "—";
-          document.getElementById("foto").src = data.foto || "https://via.placeholder.com/150x170";
-          estado.textContent = "✅ Credencial verificada";
-        } else {
-          estado.textContent = "❌ QR no registrado o falsificado";
-        }
-
-      } catch (err) {
-        console.error("Error de red:", err);
-        estado.textContent = "⚠️ Error al conectar con el servidor";
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", cargarCredencial);
+      // Redirigir a la página para calificar
+      window.location.href = 
+        `calificar.html?codigo=${codigo}&dni=${dni}&nombre=${encodeURIComponent(nombre)}`;
+    });
   </script>
 
 </body>
