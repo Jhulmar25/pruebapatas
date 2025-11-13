@@ -1,78 +1,63 @@
-// ============================================================
-//  CARGA Y VERIFICACIÓN DE CREDENCIAL - RED DE PATAS
-//  Autor: Jhulmar Márquez
-//  Archivo: credencial.js
-// ============================================================
+// =========================
+//   LEER DATOS DEL QR
+// =========================
+const hash = window.location.hash.substring(1);
+const partes = hash.split("|");
 
-export async function cargarCredencial() {
-  const estado = document.getElementById("estado");
-  const hash = window.location.hash.substring(1);
+if (partes.length !== 3) {
+    mostrarError("QR inválido o incompleto");
+} else {
+    const codigo = partes[0];
+    const dni = partes[1];
+    const nombre = decodeURIComponent(partes[2]);
 
-  // Validar QR
-  if (!hash) {
-    mostrarEstado("⚠️ QR no válido o sin datos.", "error");
-    return;
-  }
+    // Mostrar datos iniciales
+    document.getElementById("nombre").textContent = nombre;
+    document.getElementById("dni").textContent = dni;
 
-  const partes = hash.split("|");
-  const codigo = partes[0];
-  const apiURL = `https://red-de-patas-api-812893065625.us-central1.run.app/api/verificar/${codigo}`;
+    // Mostrar foto (desde Firebase Storage)
+    const fotoURL = `https://firebasestorage.googleapis.com/v0/b/red-de-patas.firebasestorage.app/o/paseadores%20de%20perros%2F${codigo}.jpg?alt=media`;
 
-  console.log("Consultando:", apiURL);
+    document.getElementById("fotoPaseador").src = fotoURL;
 
-  try {
-    const resp = await fetch(apiURL);
+    // Consultar API para obtener celular
+    obtenerDatos(codigo);
+}
 
-    if (!resp.ok) {
-      mostrarEstado(`⚠️ Error al verificar el QR (HTTP ${resp.status})`, "error");
-      return;
+
+// =========================
+//   CONSULTAR FIRESTORE API
+// =========================
+async function obtenerDatos(codigo) {
+    try {
+        const apiURL = `https://red-de-patas-api-812893065625.us-central1.run.app/paseador/${codigo}`;
+        const resp = await fetch(apiURL);
+
+        if (!resp.ok) throw new Error("No existe");
+
+        const data = await resp.json();
+
+        document.getElementById("cel").textContent = data.telefono || "No registrado";
+
+    } catch (err) {
+        mostrarError("No se encontró el paseador en la base de datos");
     }
-
-    const data = await resp.json();
-    console.log("Respuesta API:", data);
-
-    if (data.ok) {
-      actualizarUI(data);
-      mostrarEstado("✅ Credencial verificada", "ok");
-    } else {
-      mostrarEstado("❌ QR no registrado o falsificado", "error");
-    }
-
-  } catch (error) {
-    console.error("Error de red:", error);
-    mostrarEstado("⚠️ Error al conectar con el servidor", "error");
-  }
 }
 
-// ============================================================
-//  FUNCIÓN: Actualiza los textos, foto y estrellas
-// ============================================================
-function actualizarUI(data) {
-  document.getElementById("nombre").textContent   = data.nombre   || "—";
-  document.getElementById("dni").textContent      = data.dni      || "—";
-  document.getElementById("telefono").textContent = data.telefono || "—";
-  document.getElementById("foto").src             = data.foto     || "https://via.placeholder.com/150x170";
 
-  // ⭐ Calificación dinámica (0 a 5)
-  const rating = Number(data.calificacion) || 0;
-  const estrellas = "★★★★★".slice(0, rating) + "☆☆☆☆☆".slice(0, 5 - rating);
-  document.getElementById("estrellas").textContent = estrellas;
+// =========================
+//   MANEJO DE ERRORES
+// =========================
+function mostrarError(msg) {
+    document.getElementById("nombre").textContent = "—";
+    document.getElementById("dni").textContent = "—";
+    document.getElementById("cel").textContent = "—";
+
+    const cred = document.querySelector(".credencial");
+
+    cred.innerHTML += `
+        <p style="color:red; font-weight:bold; margin-top:15px;">
+            ⚠️ ${msg}
+        </p>
+    `;
 }
-
-// ============================================================
-//  FUNCIÓN: Mostrar estado visual
-// ============================================================
-function mostrarEstado(texto, tipo) {
-  const estado = document.getElementById("estado");
-
-  estado.textContent = texto;
-
-  if (tipo === "ok") {
-    estado.style.color = "#047857";  // verde
-  } else {
-    estado.style.color = "#b91c1c";  // rojo
-  }
-}
-
-// Ejecutar cuando la página cargue
-document.addEventListener("DOMContentLoaded", cargarCredencial);
