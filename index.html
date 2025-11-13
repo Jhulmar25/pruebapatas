@@ -33,31 +33,40 @@
   <script>
     async function cargarCredencial() {
       const hash = window.location.hash.substring(1);
+      const estado = document.getElementById("estado");
+
       if (!hash) {
-        document.getElementById("estado").textContent = "⚠️ QR no válido o sin datos.";
+        estado.textContent = "⚠️ QR no válido o sin datos.";
         return;
       }
 
-      // Extraer el código antes del primer '|'
       const codigo = hash.split("|")[0];
       const apiURL = `https://red-de-patas-api-812893065625.us-central1.run.app/api/verificar/${codigo}`;
+      console.log("Consultando:", apiURL);
 
       try {
         const resp = await fetch(apiURL);
+        if (!resp.ok) {
+          console.error("HTTP error:", resp.status);
+          estado.textContent = "⚠️ Error al verificar el QR (HTTP " + resp.status + ")";
+          return;
+        }
+
         const data = await resp.json();
+        console.log("Respuesta:", data);
 
         if (data.ok) {
-          document.getElementById("nombre").textContent = data.nombre;
-          document.getElementById("dni").textContent = data.dni;
-          document.getElementById("telefono").textContent = data.telefono;
-          document.getElementById("foto").src = data.foto;
-          document.getElementById("estado").textContent = "✅ Credencial verificada";
+          document.getElementById("nombre").textContent = data.nombre || "—";
+          document.getElementById("dni").textContent = data.dni || "—";
+          document.getElementById("telefono").textContent = data.telefono || "—";
+          document.getElementById("foto").src = data.foto || "https://via.placeholder.com/120x140";
+          estado.textContent = "✅ Credencial verificada";
         } else {
-          document.getElementById("estado").textContent = "❌ QR no registrado o falsificado";
+          estado.textContent = "❌ QR no registrado o falsificado";
         }
       } catch (err) {
-        console.error(err);
-        document.getElementById("estado").textContent = "⚠️ Error al verificar el QR";
+        console.error("Error de red:", err);
+        estado.textContent = "⚠️ Error al conectar con el servidor";
       }
     }
 
