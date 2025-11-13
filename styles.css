@@ -1,59 +1,24 @@
-body {
-  background: #f1f5f9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-}
-
+/* ❖ Credencial más grande para teléfonos */
 .credencial {
-  width: 280px;
-  height: 450px;
+  width: 340px;
+  height: auto;
   background: white;
-  border-radius: 18px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  border-radius: 22px;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.18);
   overflow: hidden;
   text-align: center;
-  padding: 10px 0;
-  border: 1.5px solid #dbe0e6;
+  padding: 15px 0 25px 0;
+  border: 1.7px solid #dbe0e6;
 }
 
-header h1 {
-  font-size: 1.5rem;
-  color: #0b2545;
-  font-weight: 800;
-  margin: 0;
-}
-
-header .subtitulo {
-  font-size: 1rem;
-  color: #1e293b;
-  font-style: italic;
-  margin-bottom: 8px;
-}
-
-.logo {
-  width: 200px;
-  height: auto;
-  margin-bottom: 4px;
-}
-
-.contenido {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-top: 3px solid #d3a978;
-  margin: 5px 0;
-  padding-top: 10px;
-}
-
+/* ❖ Imagen de la persona más grande */
 .foto {
-  width: 120px;
-  height: 140px;
-  border: 1.5px solid #333;
-  margin-bottom: 10px;
+  width: 150px;
+  height: 170px;
+  border: 2px solid #333;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 12px;
 }
 
 .foto img {
@@ -62,37 +27,26 @@ header .subtitulo {
   object-fit: cover;
 }
 
+/* ❖ Datos centrados, más elegantes y en negrita */
 .datos {
-  width: 100%;
-  text-align: center;      /* CENTRA TODO */
-  margin-top: 10px;
+  width: 90%;
+  text-align: center;
+  margin-top: 12px;
 }
 
 .datos p {
-  margin: 6px 0;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #1e293b;
-  letter-spacing: 0.2px;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  margin: 7px 0;
+  font-size: 1.15rem;
+  font-weight: 700;  /* ❗ NEGRITA REAL */
+  color: #0b1220;
+  letter-spacing: 0.3px;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
+/* ❖ NOMBRE / DNI / CEL con negrita más fuerte y elegante */
 .datos strong {
-  font-weight: 800;        /* NEGRITA PARA EL LABEL */
+  font-weight: 900;
   color: #002b5c;
-  margin-right: 4px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-
-footer {
-  font-size: 0.8rem;
-  margin-top: 10px;
-  color: #475569;
-}
-
-footer a {
-  color: #1e40af;
-  text-decoration: none;
+  letter-spacing: 0.7px;
 }
