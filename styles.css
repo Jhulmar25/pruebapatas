@@ -1,24 +1,67 @@
-/* ❖ Credencial más grande para teléfonos */
+/* ======== FONDO GENERAL ======== */
+body {
+  background: #f1f5f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 20px 0;
+}
+
+/* ======== TARJETA / CREDENCIAL ======== */
 .credencial {
   width: 340px;
-  height: auto;
   background: white;
   border-radius: 22px;
   box-shadow: 0 6px 25px rgba(0,0,0,0.18);
   overflow: hidden;
   text-align: center;
-  padding: 15px 0 25px 0;
+  padding: 18px 0 28px 0;
   border: 1.7px solid #dbe0e6;
 }
 
-/* ❖ Imagen de la persona más grande */
+/* ======== TITULOS ======== */
+header h1 {
+  font-size: 1.7rem;
+  color: #0b2545;
+  font-weight: 900;
+  margin: 0;
+}
+
+header .subtitulo {
+  font-size: 1.1rem;
+  color: #1e293b;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+/* ======== LOGO ======== */
+.logo {
+  width: 220px;
+  height: auto;
+  margin-bottom: 8px;
+}
+
+/* ======== SEPARADOR ======== */
+.contenido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 3px solid #d3a978;
+  margin: 5px 0;
+  padding-top: 15px;
+}
+
+/* ======== FOTO DEL PASEADOR ======== */
 .foto {
   width: 150px;
   height: 170px;
   border: 2px solid #333;
-  border-radius: 6px;
+  border-radius: 8px;
   overflow: hidden;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .foto img {
@@ -27,7 +70,7 @@
   object-fit: cover;
 }
 
-/* ❖ Datos centrados, más elegantes y en negrita */
+/* ======== DATOS PERSONALES ======== */
 .datos {
   width: 90%;
   text-align: center;
@@ -36,17 +79,45 @@
 
 .datos p {
   margin: 7px 0;
-  font-size: 1.15rem;
-  font-weight: 700;  /* ❗ NEGRITA REAL */
-  color: #0b1220;
+  font-size: 1.15rem;      /* Más grande para ver en celular */
+  font-weight: 700;        /* Negrita elegante */
+  color: #1e293b;
   letter-spacing: 0.3px;
   font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* ❖ NOMBRE / DNI / CEL con negrita más fuerte y elegante */
 .datos strong {
-  font-weight: 900;
+  font-weight: 900;        /* Negrita fuerte para el label */
   color: #002b5c;
   text-transform: uppercase;
   letter-spacing: 0.7px;
+}
+
+/* ======== PIE DE PÁGINA ======== */
+footer {
+  font-size: 0.85rem;
+  margin-top: 14px;
+  color: #475569;
+}
+
+footer a {
+  color: #1e40af;
+  text-decoration: none;
+}
+
+/* ======== RESPONSIVE (para pantallas pequeñas) ======== */
+@media (max-width: 420px) {
+  .credencial {
+    width: 92%;
+    padding-bottom: 35px;
+  }
+
+  .foto {
+    width: 155px;
+    height: 180px;
+  }
+
+  .datos p {
+    font-size: 1.2rem;
+  }
 }
