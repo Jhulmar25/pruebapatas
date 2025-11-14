@@ -111,3 +111,32 @@ button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 18px rgba(0,0,0,0.18);
 }
+/* Pantalla de agradecimiento */
+.pantalla-gracias {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: white;
+  z-index: 999;
+  animation: fadeInGracias 0.35s ease;
+}
+
+.pantalla-gracias h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0b2545;
+  text-align: center;
+}
+
+@keyframes fadeInGracias {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
