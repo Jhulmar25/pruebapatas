@@ -1,3 +1,6 @@
+/* ====================================================
+   ESTILO GENERAL — LOOK MODERNO TIPO APP MÓVIL
+   ==================================================== */
 body {
   background: #eef2f7;
   font-family: 'Segoe UI', sans-serif;
@@ -5,66 +8,106 @@ body {
   padding: 0;
 }
 
+/* CONTENEDOR */
 .contenedor {
   max-width: 420px;
   margin: auto;
-  padding: 15px;
+  padding: 20px 15px;
 }
 
+/* TÍTULO */
 h2 {
   text-align: center;
   color: #0b2545;
-  margin-bottom: 20px;
+  margin: 10px 0 25px 0;
+  font-size: 1.6rem;
+  font-weight: 800;
 }
 
+/* MENSAJE “no hay comentarios” */
 .lista .sin {
   text-align: center;
-  color: #475569;
+  color: #6b7280;
+  font-size: 1rem;
 }
 
+/* TARJETA DE COMENTARIO — SOLO CALIDAD */
 .comentario {
   background: white;
-  padding: 12px;
-  border-radius: 10px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-  margin-bottom: 12px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  margin-bottom: 14px;
+
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  border: 1px solid #e5e9f0;
+
+  animation: fadeIn 0.25s ease;
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* INFO DE NOMBRE / DNI */
 .info strong {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   color: #0b2545;
+  display: block;
+  margin-bottom: 2px;
 }
 
 .info span {
+  font-size: 0.95rem;
   color: #475569;
 }
 
+/* ESTRELLAS */
 .estrellas {
-  font-size: 1.2rem;
-  color: #f8c200;
-  margin-top: 3px;
+  font-size: 1.35rem;
+  color: #ffc400;
+  margin: 8px 0 6px 0;
+  letter-spacing: 1px;
 }
 
+/* TEXTO */
 .texto {
-  margin-top: 8px;
-  font-size: 0.95rem;
-}
-
-.fecha {
-  display: block;
   margin-top: 6px;
-  font-size: 0.8rem;
-  color: #64748b;
+  font-size: 0.98rem;
+  color: #374151;
+  line-height: 1.35rem;
 }
 
+/* FECHA */
+.fecha {
+  margin-top: 10px;
+  display: block;
+  font-size: 0.82rem;
+  color: #6b7280;
+}
+
+/* BOTÓN VOLVER — ESTILO MODERNO */
 button {
   width: 100%;
-  padding: 12px;
+  padding: 13px;
+
   border: none;
-  background: #0b2545;
+  border-radius: 12px;
+
+  background: linear-gradient(135deg, #0b2545, #15406c);
   color: white;
-  font-size: 1rem;
-  border-radius: 8px;
+  font-size: 1.05rem;
   font-weight: bold;
-  margin-top: 10px;
+
+  cursor: pointer;
+  margin-top: 20px;
+
+  box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+
+  transition: 0.25s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
 }
