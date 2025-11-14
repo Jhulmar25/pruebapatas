@@ -142,6 +142,43 @@ app.get("/api/verificar/:codigo", async (req, res) => {
 });
 
 // ============================================================
+// ⭐ RUTA: OBTENER COMENTARIOS (SIN DNI)
+// ============================================================
+app.get("/api/comentarios/:codigo", async (req, res) => {
+  const { codigo } = req.params;
+
+  try {
+    const calRef = db
+      .collection("Calificaciones")
+      .doc(codigo)
+      .collection("Calificaciones");
+
+    const snap = await calRef.orderBy("fecha", "desc").get();
+
+    let comentarios = [];
+
+    snap.forEach(doc => {
+      comentarios.push({
+        ciudadanoNombre: doc.data().ciudadanoNombre,
+        estrellas: doc.data().estrellas,
+        comentario: doc.data().comentario,
+        fecha: doc.data().fecha
+      });
+    });
+
+    res.json({
+      ok: true,
+      comentarios
+    });
+
+  } catch (err) {
+    console.error("Error obteniendo comentarios:", err);
+    res.status(500).json({ ok: false, mensaje: "⚠️ Error interno" });
+  }
+});
+
+
+// ============================================================
 // ⭐ RUTA: GUARDAR CALIFICACIÓN
 // ============================================================
 app.post("/api/calificar/:codigo", async (req, res) => {
