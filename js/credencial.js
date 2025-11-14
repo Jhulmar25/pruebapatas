@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       estrellasDiv.innerHTML = `
         <div style="font-size:2.2rem; color:#f8c200;">${estrellas}</div>
         <div style="font-size:1rem; color:#1e293b; margin-top:3px;">
-          ${promedio} de 5 · ${votos} voto(s)
+          ${promedio} - ${votos} votos
         </div>
       `;
     }
