@@ -73,12 +73,21 @@ document.getElementById("btnEnviar").addEventListener("click", async () => {
 
     const data = await resp.json();
 
-    if (data.ok) {
-      document.getElementById("mensaje").textContent =
-        `Gracias por calificar ⭐ Promedio actual: ${data.promedio} (${data.votos} votos)`;
+  if (data.ok) {
 
-      document.getElementById("btnEnviar").style.display = "none";
-    } else {
+  // 1. Ocultar formulario completo
+  document.querySelector(".calificar-container").style.display = "none";
+
+  // 2. Mostrar pantalla de agradecimiento
+  const pantalla = document.getElementById("pantallaGracias");
+  pantalla.style.display = "flex";
+
+  // 3. Redirigir automáticamente en 2 segundos
+  setTimeout(() => {
+    window.location.href = `index.html#${codigo}`;
+  }, 2000);
+
+} else {
       alert("⚠️ Error guardando la calificación.");
     }
 
@@ -95,3 +104,4 @@ document.getElementById("btnEnviar").addEventListener("click", async () => {
 document.getElementById("btnVolver").addEventListener("click", () => {
   window.location.href = `index.html#${codigo}`;
 });
+
