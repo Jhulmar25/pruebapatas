@@ -1,153 +1,149 @@
-/* ============================================================
-   ESTILO GENERAL — OPTIMIZADO PARA TELÉFONO
-   ============================================================ */
+/* ================================
+   ESTILO GENERAL
+================================ */
 body {
   margin: 0;
   padding: 0;
-  background: #f5f7fa;
-  font-family: "Segoe UI", sans-serif;
+  background: #e8edf2;
+  font-family: 'Segoe UI', sans-serif;
 
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 
   min-height: 100vh;
+  padding-top: 40px;
 }
 
-/* ============================================================
-   TARJETA PRINCIPAL — LOOK DE APLICACIÓN MÓVIL
-   ============================================================ */
-.contenedor {
-  width: 94vw;
-  max-width: 420px;
-  background: white;
+/* TARJETA */
+.calificar-container {
+  width: 92%;
+  max-width: 380px;
+  background: #ffffff;
+  padding: 28px 24px;
+  border-radius: 18px;
 
-  padding: 26px 24px;
-  border-radius: 22px;
+  box-shadow: 0 3px 16px rgba(0,0,0,0.10);
+  text-align: center;
 
-  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-  animation: fadeIn 0.25s ease-out;
+  animation: fadeIn 0.3s ease;
 }
 
-/* Animación suave */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ============================================================
-   TITULOS ESTILO MÓVIL PRO
-   ============================================================ */
+/* TITULO */
 h2 {
-  font-size: 1.7rem;
+  font-size: 1.55rem;
   font-weight: 800;
   color: #0b2545;
-  margin: 0;
-  letter-spacing: -0.5px;
+  margin-bottom: 5px;
 }
 
-.sub {
-  margin-top: 4px;
-  font-size: 1rem;
-  color: #64748b;
+.codigo-texto {
+  font-size: 0.94rem;
+  color: #6b7280;
+  margin-bottom: 20px;
 }
 
-/* ============================================================
-   ESTRELLAS — GRANDES, MODERNAS, TOCABLES
-   ============================================================ */
-.estrellas {
-  margin: 22px 0 10px 0;
-}
-
-.estrellas span {
-  font-size: 55px;              /* GRANDE PARA DEDO */
-  cursor: pointer;
-
-  color: #d9dde5;
-  transition: color 0.2s, transform 0.2s;
-}
-
-.estrellas span:hover {
-  transform: scale(1.18);
-}
-
-.estrellas span.active {
-  color: #ffc800;
-  text-shadow: 0 4px 12px rgba(255, 200, 0, 0.45);
-}
-
-/* ============================================================
-   FORMULARIO — ESTILO APP PREMIUM
-   ============================================================ */
-.formulario {
-  margin-top: 25px;
-  text-align: left;
-}
-
-label {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #1e293b;
-}
-
-/* Inputs suaves y redondeados */
+/* INPUTS */
 input, textarea {
   width: 100%;
-  padding: 14px;
-  margin: 6px 0 20px 0;
+  box-sizing: border-box;
+
+  padding: 11px 13px;
+  margin-bottom: 14px;
 
   font-size: 1rem;
-  border-radius: 16px;
+  border-radius: 10px;
 
-  background: #f1f5f9;
-  border: 1.7px solid #d7dfe7;
+  background: #f3f6fa;
+  border: 1.6px solid #cbd5e1;
 
-  transition: all 0.2s ease;
-}
-
-input:focus,
-textarea:focus {
-  border-color: #0b2545;
-  background: #ffffff;
+  transition: .25s ease;
   outline: none;
 }
 
+input:focus, textarea:focus {
+  border-color: #0b2545;
+  background: #ffffff;
+}
+
+/* TEXTAREA */
 textarea {
-  height: 100px;
+  height: 110px;
   resize: none;
 }
 
-/* ============================================================
-   BOTÓN — DISEÑO TIPO iOS / UBER
-   ============================================================ */
-button {
-  width: 100%;
-  padding: 16px;
+/* ESTRELLAS — VERSION MEJORADA */
+.estrellas {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 12px 0 18px 0;
+}
 
-  background: #0b2545;
-  color: white;
-  font-weight: 700;
-
-  border: none;
-  border-radius: 16px;
-  font-size: 1.05rem;
-
+.estrellas span {
+  font-size: 48px;
   cursor: pointer;
+  color: #d1d5db;
   transition: 0.2s ease;
-  box-shadow: 0 6px 14px rgba(0, 34, 90, 0.25);
 }
 
-button:hover {
-  background: #143b6e;
-  transform: scale(1.02);
+.estrellas span:hover {
+  transform: scale(1.15);
 }
 
-/* ============================================================
-   MENSAJE
-   ============================================================ */
-.mensaje {
-  margin-top: 20px;
-  font-size: 1rem;
+.estrellas span.active {
+  color: #ffbf00;
+  transform: scale(1.1);
+}
+
+/* BOTONES EN PARALELO */
+.botones-doble {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.botones-doble button {
+  flex: 1;
+  padding: 11px;
+  font-size: 0.95rem;
   font-weight: 700;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+/* Azul */
+.btn-primary {
+  background: linear-gradient(135deg, #0b2545, #0e3b6a);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Gris */
+.btn-secundario {
+  background: #e2e6eb;
+  color: #1e293b;
+}
+
+.btn-secundario:hover {
+  background: #d5d9df;
+}
+
+/* MENSAJE */
+.mensaje {
+  margin-top: 12px;
+  font-size: 1rem;
+  font-weight: 600;
   color: #0b2545;
 }
