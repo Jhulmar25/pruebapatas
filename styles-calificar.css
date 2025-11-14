@@ -1,10 +1,10 @@
 /* ============================================================
-   FONDO
+   ESTILO GENERAL — OPTIMIZADO PARA TELÉFONO
    ============================================================ */
 body {
   margin: 0;
   padding: 0;
-  background: #f0f2f5;
+  background: #f5f7fa;
   font-family: "Segoe UI", sans-serif;
 
   display: flex;
@@ -15,127 +15,126 @@ body {
 }
 
 /* ============================================================
-   TARJETA PRINCIPAL
+   TARJETA PRINCIPAL — LOOK DE APLICACIÓN MÓVIL
    ============================================================ */
 .contenedor {
-  width: 92vw;
-  max-width: 400px;
+  width: 94vw;
+  max-width: 420px;
   background: white;
-  padding: 25px 22px 30px 22px;
 
+  padding: 26px 24px;
   border-radius: 22px;
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.10);
 
-  text-align: center;
-  animation: fadeIn 0.3s ease;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  animation: fadeIn 0.25s ease-out;
 }
 
 /* Animación suave */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ============================================================
-   TÍTULOS
+   TITULOS ESTILO MÓVIL PRO
    ============================================================ */
 h2 {
-  font-size: 1.65rem;
-  color: #0b2545;
+  font-size: 1.7rem;
   font-weight: 800;
+  color: #0b2545;
   margin: 0;
+  letter-spacing: -0.5px;
 }
 
 .sub {
   margin-top: 4px;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: #64748b;
 }
 
 /* ============================================================
-   ESTRELLAS
+   ESTRELLAS — GRANDES, MODERNAS, TOCABLES
    ============================================================ */
 .estrellas {
-  margin: 18px 0 10px 0;
+  margin: 22px 0 10px 0;
 }
 
 .estrellas span {
-  font-size: 48px;
+  font-size: 55px;              /* GRANDE PARA DEDO */
   cursor: pointer;
 
-  color: #d7dde5;                /* Gris claro */
-  transition: transform 0.2s, color 0.2s;
+  color: #d9dde5;
+  transition: color 0.2s, transform 0.2s;
 }
 
 .estrellas span:hover {
-  transform: scale(1.2);
+  transform: scale(1.18);
 }
 
 .estrellas span.active {
-  color: #f8c200;                /* Amarillo suave */
-  text-shadow: 0 2px 6px rgba(248, 194, 0, 0.4);
+  color: #ffc800;
+  text-shadow: 0 4px 12px rgba(255, 200, 0, 0.45);
 }
 
 /* ============================================================
-   FORMULARIO
+   FORMULARIO — ESTILO APP PREMIUM
    ============================================================ */
 .formulario {
+  margin-top: 25px;
   text-align: left;
-  margin-top: 20px;
 }
 
 label {
+  font-size: 1rem;
   font-weight: 700;
-  font-size: 0.95rem;
-  color: #0f172a;
+  color: #1e293b;
 }
 
-input,
-textarea {
+/* Inputs suaves y redondeados */
+input, textarea {
   width: 100%;
-  padding: 12px;
-  margin: 6px 0 18px 0;
+  padding: 14px;
+  margin: 6px 0 20px 0;
 
-  font-size: 0.98rem;
-  border-radius: 12px;
+  font-size: 1rem;
+  border-radius: 16px;
 
-  background: #f8fafc;
-  border: 1.6px solid #cbd5e1;
+  background: #f1f5f9;
+  border: 1.7px solid #d7dfe7;
 
-  transition: 0.1s;
+  transition: all 0.2s ease;
 }
 
 input:focus,
 textarea:focus {
   border-color: #0b2545;
-  outline: none;
   background: #ffffff;
+  outline: none;
 }
 
 textarea {
-  height: 90px;
+  height: 100px;
   resize: none;
 }
 
 /* ============================================================
-   BOTÓN
+   BOTÓN — DISEÑO TIPO iOS / UBER
    ============================================================ */
 button {
   width: 100%;
-  padding: 14px;
-  margin-top: 6px;
+  padding: 16px;
 
   background: #0b2545;
   color: white;
-  border: none;
-  border-radius: 14px;
-
-  font-size: 1.05rem;
   font-weight: 700;
 
+  border: none;
+  border-radius: 16px;
+  font-size: 1.05rem;
+
   cursor: pointer;
-  transition: 0.2s;
-  box-shadow: 0 4px 10px rgba(11, 37, 69, 0.25);
+  transition: 0.2s ease;
+  box-shadow: 0 6px 14px rgba(0, 34, 90, 0.25);
 }
 
 button:hover {
@@ -144,10 +143,10 @@ button:hover {
 }
 
 /* ============================================================
-   MENSAJE DE RESPUESTA
+   MENSAJE
    ============================================================ */
 .mensaje {
-  margin-top: 18px;
+  margin-top: 20px;
   font-size: 1rem;
   font-weight: 700;
   color: #0b2545;
