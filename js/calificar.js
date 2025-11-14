@@ -13,34 +13,41 @@ if (!codigo) {
 
 document.getElementById("codigoTexto").textContent = `Código: ${codigo}`;
 
-// URL del backend
+// URL de tu backend
 const backendURL = "https://red-de-patas-api-812893065625.us-central1.run.app";
 
+
 // ================================
-// 2. Selección de estrellas
+// 2. Manejo de estrellas
 // ================================
 let estrellasSeleccionadas = 0;
 
 document.querySelectorAll(".estrellas span").forEach((star, index) => {
   star.addEventListener("click", () => {
+
     estrellasSeleccionadas = index + 1;
 
+    // Resetear
     document.querySelectorAll(".estrellas span").forEach(s => s.classList.remove("active"));
+
+    // Activar seleccionadas
     for (let i = 0; i <= index; i++) {
       document.querySelectorAll(".estrellas span")[i].classList.add("active");
     }
   });
 });
 
+
 // ================================
-// 3. Enviar calificación
+// 3. Enviar calificación al backend
 // ================================
 document.getElementById("btnEnviar").addEventListener("click", async () => {
 
   const ciudadanoNombre = document.getElementById("ciudadanoNombre").value.trim();
-  const ciudadanoDni = document.getElementById("ciudadanoidni").value.trim();
+  const ciudadanoDni = document.getElementById("ciudadanoDni").value.trim();
   const comentario = document.getElementById("comentario").value.trim();
 
+  // VALIDACIONES
   if (!estrellasSeleccionadas) {
     alert("Selecciona una cantidad de estrellas.");
     return;
@@ -51,31 +58,39 @@ document.getElementById("btnEnviar").addEventListener("click", async () => {
     return;
   }
 
-  const resp = await fetch(`${backendURL}/api/calificar/${codigo}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      ciudadanoNombre,
-      ciudadanoDni,
-      estrellas: estrellasSeleccionadas,
-      comentario
-    })
-  });
+  try {
 
-  const data = await resp.json();
+    const resp = await fetch(`${backendURL}/api/calificar/${codigo}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ciudadanoNombre,
+        ciudadanoDni,
+        estrellas: estrellasSeleccionadas,
+        comentario
+      })
+    });
 
-  if (data.ok) {
-    document.getElementById("mensaje").textContent =
-      `Gracias por calificar ⭐ Promedio actual: ${data.promedio} (${data.votos} votos)`;
+    const data = await resp.json();
 
-    document.getElementById("btnEnviar").style.display = "none";
-  } else {
-    alert("Error enviando calificación.");
+    if (data.ok) {
+      document.getElementById("mensaje").textContent =
+        `Gracias por calificar ⭐ Promedio actual: ${data.promedio} (${data.votos} votos)`;
+
+      document.getElementById("btnEnviar").style.display = "none";
+    } else {
+      alert("⚠️ Error guardando la calificación.");
+    }
+
+  } catch (err) {
+    console.error(err);
+    alert("⚠️ Error conectando con el servidor.");
   }
 });
 
+
 // ================================
-// 4. Volver a la credencial
+// 4. Botón volver
 // ================================
 document.getElementById("btnVolver").addEventListener("click", () => {
   window.location.href = `index.html#${codigo}`;
