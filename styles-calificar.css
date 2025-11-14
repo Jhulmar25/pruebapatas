@@ -4,7 +4,7 @@
 body {
   margin: 0;
   padding: 0;
-  background: #e8edf2;
+  background: #eef2f7;
   font-family: 'Segoe UI', sans-serif;
 
   display: flex;
@@ -18,132 +18,190 @@ body {
 /* TARJETA */
 .calificar-container {
   width: 92%;
-  max-width: 380px;
+  max-width: 390px;
   background: #ffffff;
-  padding: 28px 24px;
-  border-radius: 18px;
+  padding: 30px 26px;
+  border-radius: 24px;
 
-  box-shadow: 0 3px 16px rgba(0,0,0,0.10);
+  /* sombra mucho más elegante */
+  box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+
   text-align: center;
-
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn 0.4s ease;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
 /* TITULO */
 h2 {
-  font-size: 1.55rem;
+  font-size: 1.7rem;
   font-weight: 800;
   color: #0b2545;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
 .codigo-texto {
-  font-size: 0.94rem;
+  font-size: 0.95rem;
   color: #6b7280;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
-/* INPUTS */
+/* ================================
+   INPUTS PROFESIONALES — SOFT UI
+================================ */
 input, textarea {
   width: 100%;
   box-sizing: border-box;
 
-  padding: 11px 13px;
-  margin-bottom: 14px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
 
   font-size: 1rem;
-  border-radius: 10px;
+  border-radius: 14px;
 
-  background: #f3f6fa;
-  border: 1.6px solid #cbd5e1;
+  background: #f6f8fc;
+  border: 1.7px solid #d7dde7;
 
-  transition: .25s ease;
+  box-shadow:
+    inset 3px 3px 6px rgba(0,0,0,0.05),
+    inset -3px -3px 6px rgba(255,255,255,0.9);
+
+  transition: 0.25s ease;
   outline: none;
 }
 
 input:focus, textarea:focus {
   border-color: #0b2545;
   background: #ffffff;
+
+  box-shadow:
+    0 0 0 3px rgba(11, 37, 69, 0.15),
+    inset 3px 3px 6px rgba(0,0,0,0.06),
+    inset -3px -3px 6px rgba(255,255,255,1);
 }
 
-/* TEXTAREA */
 textarea {
-  height: 110px;
+  height: 120px;
   resize: none;
 }
 
-/* ESTRELLAS — VERSION MEJORADA */
+/* ================================
+   ESTRELLAS MEJORADAS
+================================ */
 .estrellas {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin: 12px 0 18px 0;
+  gap: 14px;
+  margin: 18px 0 22px 0;
 }
 
 .estrellas span {
-  font-size: 48px;
+  font-size: 52px;
   cursor: pointer;
   color: #d1d5db;
   transition: 0.2s ease;
 }
 
 .estrellas span:hover {
-  transform: scale(1.15);
+  transform: scale(1.2);
 }
 
 .estrellas span.active {
-  color: #ffbf00;
-  transform: scale(1.1);
+  color: #ffce00;
+  transform: scale(1.12);
 }
 
-/* BOTONES EN PARALELO */
+/* ================================
+   BOTONES PREMIUM
+================================ */
 .botones-doble {
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
+  gap: 14px;
+  margin-top: 15px;
 }
 
 .botones-doble button {
   flex: 1;
-  padding: 11px;
-  font-size: 0.95rem;
+  padding: 12px;
+  font-size: 1rem;
   font-weight: 700;
-  border-radius: 10px;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
   transition: 0.25s ease;
 }
 
-/* Azul */
+/* Azul principal */
 .btn-primary {
-  background: linear-gradient(135deg, #0b2545, #0e3b6a);
-  color: #ffffff;
+  background: linear-gradient(135deg, #0b2545, #143c6a);
+  color: white;
+  box-shadow: 0 5px 16px rgba(0,0,0,0.15);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.20);
 }
 
 /* Gris */
 .btn-secundario {
-  background: #e2e6eb;
+  background: #e4e7ec;
   color: #1e293b;
 }
 
 .btn-secundario:hover {
-  background: #d5d9df;
+  background: #d8dce2;
 }
 
 /* MENSAJE */
 .mensaje {
-  margin-top: 12px;
+  margin-top: 14px;
   font-size: 1rem;
   font-weight: 600;
   color: #0b2545;
+}
+
+
+/* ==========================================
+   PANTALLA DE GRACIAS — ULTRA PREMIUM (ROJO)
+========================================== */
+.pantalla-gracias {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #ffffff;
+  z-index: 999;
+  animation: fadeInGracias 0.4s ease;
+}
+
+/* Mensaje rojo elegante */
+.pantalla-gracias h1 {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #d62828;   /* ROJO profesional */
+  text-align: center;
+  letter-spacing: 1px;
+
+  opacity: 0;
+  animation: zoomIn 0.6s ease forwards;
+}
+
+@keyframes fadeInGracias {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
 }
